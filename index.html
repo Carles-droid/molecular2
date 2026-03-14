@@ -38,7 +38,7 @@
       <!-- Logotipo -->
       <a href="#inicio" class="header__logo" aria-label="Molecular Solutions — Ir al inicio">
         <img
-          src="assets/images/logo.svg"
+          src="assets/icons/logo.svg"
           alt="Logotipo de Molecular Solutions"
           class="header__logo-img"
           width="180"
@@ -275,7 +275,7 @@
             <article class="category-card">
               <div class="category-card__media">
                 <img
-                  src="assets/images/products/reactivos.webp"
+                  src="assets/img/products/producto01.jpg"
                   alt="Reactivos químicos de alta pureza en frascos de laboratorio"
                   class="category-card__img"
                   loading="lazy"
@@ -304,7 +304,7 @@
             <article class="category-card">
               <div class="category-card__media">
                 <img
-                  src="assets/images/products/vidrieria.webp"
+                  src="assets/img/products/productos02.webp"
                   alt="Material de vidrio borosilicato para laboratorio"
                   class="category-card__img"
                   loading="lazy"
@@ -333,7 +333,7 @@
             <article class="category-card">
               <div class="category-card__media">
                 <img
-                  src="assets/images/products/equipos.webp"
+                  src="assets/img/products/productos03.jpg"
                   alt="Equipos de laboratorio: balanzas, centrifugadoras y agitadores"
                   class="category-card__img"
                   loading="lazy"
@@ -362,7 +362,7 @@
             <article class="category-card">
               <div class="category-card__media">
                 <img
-                  src="assets/images/products/consumibles.webp"
+                  src="assets/img/products/productos04jpg.jpg"
                   alt="Consumibles de laboratorio: guantes, tubos y puntas de micropipeta"
                   class="category-card__img"
                   loading="lazy"
@@ -391,7 +391,7 @@
             <article class="category-card">
               <div class="category-card__media">
                 <img
-                  src="assets/images/products/seguridad.webp"
+                  src="assets/img/products/productos05.jpg"
                   alt="Equipo de protección personal para laboratorio"
                   class="category-card__img"
                   loading="lazy"
@@ -420,7 +420,7 @@
             <article class="category-card">
               <div class="category-card__media">
                 <img
-                  src="assets/images/products/solventes.webp"
+                  src="assets/img/products/producto06.jpg"
                   alt="Solventes orgánicos e inorgánicos certificados"
                   class="category-card__img"
                   loading="lazy"
@@ -572,21 +572,38 @@
 
     </section>
     <!-- /about -->
-
-
-    <!-- =================================================
-         SECCIÓN 4: CLIENTES
+        <!-- =================================================
+         SECCIÓN 4: CLIENTES — Carrusel infinito de logos
          id="clientes" — ancla de navegación
-         Estructura:
-           • .clients__marquee        → pista de animación infinita (CSS animation)
-           • .clients__track          → lista duplicada para loop sin cortes
-           • .clients__logo-item      → cada logotipo de cliente
-         TÉCNICA: se duplica el .clients__track para que la animación
-         de scroll infinito no muestre huecos al hacer loop.
-         Parar hover: animation-play-state: paused (ver CSS).
+ 
+         TÉCNICA DE LOOP INFINITO (CSS puro):
+         El .clients__track se duplica con aria-hidden="true".
+         La animación desplaza ambos tracks juntos; cuando el primero
+         sale de pantalla, el segundo (idéntico) ya está en posición,
+         creando un loop visual sin cortes y sin JavaScript.
+ 
+         ── CÓMO AGREGAR UN LOGO ──────────────────────────────────
+         1. Copiar el archivo .svg a assets/images/clients/
+         2. Agregar un <li> al track ORIGINAL (el primero):
+ 
+              <li class="clients__logo-item">
+                <img
+                  src="assets/images/clients/nombre-cliente.svg"
+                  alt="Nombre de la institución"
+                  class="clients__logo-img"
+                  loading="lazy"
+                  width="140"
+                  height="60"
+                />
+              </li>
+ 
+         3. Duplicar el mismo <li> en el track con aria-hidden="true"
+            manteniendo alt="" en la copia (evita lecturas duplicadas).
+         4. No se requieren cambios en CSS ni JS.
+         ─────────────────────────────────────────────────────────
     ================================================== -->
     <section class="clients" id="clientes" aria-labelledby="clients-heading">
-
+ 
       <div class="container">
         <header class="section-header clients__header">
           <span class="section-header__tag">Confianza</span>
@@ -595,76 +612,89 @@
           </h2>
         </header>
       </div>
-
-      <!-- Carrusel infinito — fuera del container para ocupar 100% del ancho -->
-      <div class="clients__marquee" aria-label="Logotipos de clientes" role="img">
-
-        <!--
-          IMPORTANTE: el track se repite dos veces (aria-hidden en el segundo)
-          para lograr el efecto de scroll infinito sin JavaScript.
-          Si los logos se cargan dinámicamente (JS/CMS), solo se necesita
-          un track y el script se encarga de clonar.
-        -->
-
-        <!-- Track original -->
+ 
+      <!-- Carrusel — ancho completo, fuera del container -->
+      <div class="clients__marquee" aria-label="Logotipos de instituciones cliente" role="img">
+ 
+        <!-- Belt: tira animada que contiene ambos tracks.
+             Es el único elemento que se desplaza. -->
+        <div class="clients__belt">
+ 
+        <!-- ── Track original (accesible) ── -->
         <ul class="clients__track" role="list">
+ 
           <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-01.svg" alt="Universidad Nacional Autónoma" loading="lazy" />
+            <img
+              src="assets/icons/unam.svg"
+              alt="Universidad Nacional Autónoma de México"
+              class="clients__logo-img"
+              loading="lazy"
+              width="140"
+              height="60"
+            />
           </li>
+ 
           <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-02.svg" alt="Instituto Politécnico Nacional" loading="lazy" />
+            <img
+              src="assets/icons/uam.svg"
+              alt="Universidad Autónoma Metropolitana"
+              class="clients__logo-img"
+              loading="lazy"
+              width="140"
+              height="60"
+            />
           </li>
+ 
           <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-03.svg" alt="Universidad de Guadalajara" loading="lazy" />
+            <img
+              src="assets/icons/ipn.svg"
+              alt="Instituto Politécnico Nacional"
+              class="clients__logo-img"
+              loading="lazy"
+              width="140"
+              height="60"
+            />
           </li>
+ 
           <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-04.svg" alt="CINVESTAV" loading="lazy" />
+            <img
+              src="assets/icons/tecM.svg"
+              alt="Tecnológico de Monterrey"
+              class="clients__logo-img"
+              loading="lazy"
+              width="140"
+              height="60"
+            />
           </li>
-          <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-05.svg" alt="Centro de Investigación Científica" loading="lazy" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-06.svg" alt="Hospital Universitario" loading="lazy" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-07.svg" alt="Tecnológico de Monterrey" loading="lazy" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-08.svg" alt="Universidad Iberoamericana" loading="lazy" />
-          </li>
+ 
         </ul>
-
-        <!-- Track duplicado para loop continuo -->
+        <!-- /track original -->
+ 
+        <!-- ── Track duplicado para loop (oculto a lectores de pantalla) ── -->
         <ul class="clients__track" role="list" aria-hidden="true">
+ 
           <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-01.svg" alt="" loading="lazy" />
+            <img src="assets/icons/unam.svg"          alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
           </li>
           <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-02.svg" alt="" loading="lazy" />
+            <img src="assets/icons/uam.svg"           alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
           </li>
           <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-03.svg" alt="" loading="lazy" />
+            <img src="assets/icons/ipn.svg"           alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
           </li>
           <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-04.svg" alt="" loading="lazy" />
+            <img src="assets/icons/tecM.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
           </li>
-          <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-05.svg" alt="" loading="lazy" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-06.svg" alt="" loading="lazy" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-07.svg" alt="" loading="lazy" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/images/clients/cliente-08.svg" alt="" loading="lazy" />
-          </li>
+ 
         </ul>
-
+        <!-- /track duplicado -->
+ 
+        </div>
+        <!-- /clients__belt -->
+ 
       </div>
       <!-- /clients__marquee -->
-
+ 
     </section>
     <!-- /clients -->
 

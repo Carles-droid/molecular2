@@ -2079,3 +2079,202 @@ a:focus-visible {
     display: none;
   }
 }
+
+/* ================================================================
+   11. CLIENTES — Carrusel infinito de logos
+   ================================================================
+ 
+   Técnica de loop continuo:
+   ─────────────────────────
+   El .clients__marquee actúa como ventana de recorte (overflow:hidden).
+   Dentro vive .clients__belt: un flex que contiene los dos tracks
+   idénticos colocados en fila, formando una tira el doble de larga.
+ 
+   La animación desplaza el BELT completo hacia la izquierda el 50%
+   de su ancho total (= el ancho exacto de un track). En ese punto
+   el segundo track está exactamente donde estaba el primero al inicio,
+   por lo que el loop reinicia sin ningún salto visible.
+ 
+   Por qué animar el belt y no los tracks:
+   • Si cada track tuviese su propia animación, translateX(-100%) se
+     calcularía sobre el ancho del propio track, no del viewport.
+     Con 4 logos el track es más corto que la pantalla y el primer
+     frame ya aparece desplazado — ese era el bug del "inicio a la mitad".
+   • Animando el belt, el 50% siempre equivale exactamente a un track,
+     independientemente de cuántos logos haya o del ancho del viewport.
+ 
+   Velocidad:
+   --marquee-duration controla la duración completa del ciclo.
+   Regla práctica al agregar logos: ~5s por logo adicional.
+   ================================================================ */
+ 
+/* ── Variable de velocidad ── */
+:root {
+  --marquee-duration: 22s;
+}
+ 
+/* ── Sección contenedor ── */
+.clients {
+  padding-block: var(--space-20);
+  background-color: var(--colorFondoSuperficie);
+  border-top: 1px solid var(--colorBorde);
+  overflow: hidden;
+}
+ 
+/* ── Encabezado ── */
+.clients__header {
+  margin-bottom: var(--space-12);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   MARQUEE — Ventana de recorte
+   Solo define el área visible y el efecto de fade en los bordes.
+   No tiene animación propia.
+   ──────────────────────────────────────────────────────────────── */
+.clients__marquee {
+  width: 100%;
+  overflow: hidden;
+  /* Fade lateral: suaviza la entrada y salida de los logos */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 6%,
+    black 94%,
+    transparent 100%
+  );
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   BELT — Tira animada que contiene ambos tracks
+   Es el único elemento que se mueve. Desplaza el 50% de su propio
+   ancho (= la longitud de un track completo) y reinicia.
+   ──────────────────────────────────────────────────────────────── */
+.clients__belt {
+  display: flex;              /* Tracks en fila horizontal */
+  width: max-content;         /* Se expande al ancho real de su contenido */
+  animation: belt-scroll var(--marquee-duration) linear infinite;
+  will-change: transform;
+}
+ 
+@keyframes belt-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }  /* 50% del belt = 1 track exacto */
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   TRACK — Lista de logos (×2 en el HTML)
+   Sin animación propia — el belt los arrastra.
+   ──────────────────────────────────────────────────────────────── */
+.clients__track {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);       /* Espacio generoso entre logos */
+  padding-inline: var(--space-8);
+  flex-shrink: 0;
+  list-style: none;
+  margin: 0;
+  padding-block: var(--space-4);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   LOGO ITEM
+   ──────────────────────────────────────────────────────────────── */
+.clients__logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   LOGO IMG
+   Filtro brightness+invert para adaptar cualquier SVG al fondo
+   oscuro sin modificar los archivos originales.
+ 
+   NOTA: si un logo funciona mejor en color, añadir al <li>
+   la clase .clients__logo-item--color y sobrescribir el filtro:
+ 
+     .clients__logo-item--color .clients__logo-img {
+       filter: none;
+       opacity: 0.7;
+     }
+   ──────────────────────────────────────────────────────────────── */
+.clients__logo-img {
+  height: 52px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  display: block;
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+  /* Sin transición: el carrusel es animado, no interactivo */
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   RESPONSIVE
+   ──────────────────────────────────────────────────────────────── */
+ 
+@media (max-width: 768px) {
+  .clients {
+    padding-block: var(--space-16);
+  }
+ 
+  .clients__track {
+    gap: var(--space-10);
+  }
+ 
+  .clients__logo-img {
+    height: 40px;
+    max-width: 120px;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .clients__track {
+    gap: var(--space-8);
+  }
+ 
+  .clients__logo-img {
+    height: 34px;
+    max-width: 100px;
+  }
+}
+ 
+/* Accesibilidad: sin animación para quienes lo prefieren */
+@media (prefers-reduced-motion: reduce) {
+  .clients__belt {
+    animation: none;
+  }
+ 
+  /* Mostrar logos en grid estático centrado */
+  .clients__marquee {
+    -webkit-mask-image: none;
+    mask-image: none;
+    overflow: visible;
+  }
+ 
+  .clients__belt {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-8);
+    padding-inline: var(--space-8);
+  }
+ 
+  /* Ocultar el track duplicado */
+  .clients__track:last-child {
+    display: none;
+  }
+ 
+  .clients__logo-img {
+    opacity: 0.6;
+  }
+}
+ 
