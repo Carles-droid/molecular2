@@ -1,0 +1,2081 @@
+/* ================================================================
+   MOLECULAR SOLUTIONS — main.css
+   Estilo principal del sitio
+   Autor: Insomne
+   Versión: 1.0.0
+
+   ÍNDICE
+   ──────────────────────────────────────────────────────────────
+   01. Custom Properties (Design Tokens)
+   02. Reset complementario a Normalize.css
+   03. Base & Tipografía global
+   04. Utilidades globales (.container, .btn, .section-header)
+   05. Header & Navegación principal
+   ================================================================ */
+
+
+/* ================================================================
+   01. CUSTOM PROPERTIES — Design Tokens
+   ================================================================
+
+   Decisión de distribución de color:
+   ─────────────────────────────────
+   • colorPrimario   #007ecf  → Azul medio. Acción principal: botones,
+                                links activos, bordes de énfasis.
+   • colorSecundario #01a3ee  → Azul brillante. Hover states, gradientes,
+                                elementos interactivos secundarios.
+   • colorProfundo   #02336a  → Azul oscuro marino. Fondos de secciones
+                                con contraste, header scrolled, footer.
+   • colorBase       #fefefe  → Casi blanco. Texto sobre fondos oscuros,
+                                backgrounds de tarjetas, superficies claras.
+
+   La combinación produce una identidad dark-tech:
+   fondo oscuro (#0a0f1a) + superficies azul marino + acentos eléctricos.
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+
+  /* ── Paleta principal ── */
+  --colorPrimario:   #007ecf;
+  --colorSecundario: #01a3ee;
+  --colorProfundo:   #02336a;
+  --colorBase:       #fefefe;
+
+  /* ── Colores de superficie / fondo ── */
+  --colorFondoSitio:      #070d18;      /* Fondo global: negro azulado profundo */
+  --colorFondoSuperficie: #0d1a2e;      /* Cards, header, contenedores */
+  --colorFondoElevado:    #112240;      /* Hover de cards, tooltips */
+  --colorBorde:           #1a3a5c;      /* Bordes sutiles en dark mode */
+  --colorBordeActivo:     var(--colorPrimario);
+
+  /* ── Texto ── */
+  --colorTexto:           var(--colorBase);      /* Texto principal */
+  --colorTextoMuted:      #8dafc9;               /* Texto secundario / descripción */
+  --colorTextoSutil:      #4a7090;               /* Texto muy atenuado: placeholders */
+
+  /* ── Estado & feedback ── */
+  --colorExito:    #00d68f;
+  --colorAlerta:   #ffaa00;
+  --colorError:    #ff4d6d;
+
+  /* ── Gradientes ── */
+  --gradientePrimario:  linear-gradient(135deg, var(--colorProfundo) 0%, var(--colorPrimario) 100%);
+  --gradienteAcento:    linear-gradient(135deg, var(--colorPrimario) 0%, var(--colorSecundario) 100%);
+  --gradienteOverlay:   linear-gradient(to top, rgba(2, 51, 106, 0.92) 0%, rgba(7, 13, 24, 0.4) 100%);
+
+  /* ── Tipografías ── */
+  --fuentePrincipal:   'Exo 2', sans-serif;    /* Headings / display */
+  --fuenteSecundaria:  'Inter', sans-serif;     /* Body / UI */
+
+  /* ── Escala tipográfica fluid via clamp() ── */
+  --fs-xs:   clamp(0.70rem, 1vw,   0.75rem);
+  --fs-sm:   clamp(0.813rem, 1.2vw, 0.875rem);
+  --fs-base: clamp(0.9375rem, 1.5vw, 1rem);
+  --fs-md:   clamp(1.063rem, 1.8vw, 1.125rem);
+  --fs-lg:   clamp(1.25rem, 2.5vw, 1.5rem);
+  --fs-xl:   clamp(1.5rem, 3vw, 2rem);
+  --fs-2xl:  clamp(2rem, 4vw, 2.75rem);
+  --fs-3xl:  clamp(2.5rem, 6vw, 3.75rem);
+
+  /* ── Pesos tipográficos ── */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-extrabold:800;
+
+  /* ── Espaciado múltiplos de 4px ── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ── Layout ── */
+  --anchoContenedor:   1200px;
+  --paddingContenedor: clamp(var(--space-4), 5vw, var(--space-10));
+
+  /* ── Alturas de componentes ── */
+  --alturaHeader:         72px;
+  --alturaHeaderScrolled: 60px;
+
+  /* ── Bordes & radios ── */
+  --radioSm:   4px;
+  --radioBase: 8px;
+  --radioMd:   12px;
+  --radioLg:   16px;
+  --radioXl:   24px;
+  --radioPill: 9999px;
+
+  /* ── Sombras ── */
+  --sombraCard:    0 4px 24px rgba(0, 0, 0, 0.4);
+  --sombraElevada: 0 8px 40px rgba(0, 126, 207, 0.18);
+  --sombraGlow:    0 0 24px rgba(1, 163, 238, 0.35);
+  --sombraInset:   inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* ── Transiciones ── */
+  --transRapida:  150ms ease;
+  --transMedia:   300ms ease;
+  --transLenta:   500ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Z-index map ── */
+  --zBase:    0;
+  --zElevado: 10;
+  --zDropdown:100;
+  --zSticky:  200;
+  --zModal:   300;
+  --zToast:   400;
+  --zFab:     500;
+}
+
+
+/* ================================================================
+   02. RESET COMPLEMENTARIO A NORMALIZE.CSS
+   ================================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1, h2, h3, h4, h5, h6,
+p, figure, blockquote,
+dl, dd, ul, ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ================================================================
+   03. BASE & TIPOGRAFÍA GLOBAL
+   ================================================================ */
+
+body {
+  font-family: var(--fuenteSecundaria);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: 1.65;
+  color: var(--colorTexto);
+  background-color: var(--colorFondoSitio);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fuentePrincipal);
+  font-weight: var(--fw-bold);
+  line-height: 1.2;
+  color: var(--colorBase);
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: var(--fs-3xl); }
+h2 { font-size: var(--fs-2xl); }
+h3 { font-size: var(--fs-xl);  }
+h4 { font-size: var(--fs-lg);  }
+h5 { font-size: var(--fs-md);  }
+h6 { font-size: var(--fs-base);}
+
+p {
+  color: var(--colorTextoMuted);
+  max-width: 68ch;
+}
+
+a {
+  color: var(--colorSecundario);
+  text-decoration: none;
+  transition: color var(--transRapida);
+}
+
+a:hover {
+  color: var(--colorBase);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--colorSecundario);
+  outline-offset: 3px;
+  border-radius: var(--radioSm);
+}
+
+::selection {
+  background-color: var(--colorPrimario);
+  color: var(--colorBase);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--colorFondoSitio);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--colorBorde);
+  border-radius: var(--radioPill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--colorPrimario);
+}
+
+
+/* ================================================================
+   04. UTILIDADES GLOBALES
+   ================================================================ */
+
+/* ── .container ── */
+.container {
+  width: 100%;
+  max-width: var(--anchoContenedor);
+  margin-inline: auto;
+  padding-inline: var(--paddingContenedor);
+}
+
+/* ── .skip-link ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: var(--zModal);
+  padding: var(--space-2) var(--space-4);
+  background: var(--colorPrimario);
+  color: var(--colorBase);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  border-radius: var(--radioBase);
+  transition: top var(--transMedia);
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+}
+
+/* ── .btn ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border: 2px solid transparent;
+  border-radius: var(--radioBase);
+  font-family: var(--fuentePrincipal);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--transMedia),
+    color var(--transMedia),
+    border-color var(--transMedia),
+    box-shadow var(--transMedia),
+    transform var(--transRapida);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--gradienteAcento);
+  color: var(--colorBase);
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(1, 163, 238, 0.25);
+}
+
+.btn--primary:hover {
+  background: linear-gradient(135deg, var(--colorSecundario) 0%, var(--colorPrimario) 100%);
+  box-shadow: var(--sombraGlow);
+  color: var(--colorBase);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--colorSecundario);
+  border-color: var(--colorPrimario);
+}
+
+.btn--outline:hover {
+  background: rgba(0, 126, 207, 0.12);
+  border-color: var(--colorSecundario);
+  color: var(--colorBase);
+  box-shadow: 0 0 16px rgba(1, 163, 238, 0.2);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--colorTextoMuted);
+  border-color: transparent;
+}
+
+.btn--ghost:hover {
+  color: var(--colorBase);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ── .section-header ── */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.section-header__tag {
+  display: inline-block;
+  padding: var(--space-1) var(--space-4);
+  margin-bottom: var(--space-4);
+  font-family: var(--fuentePrincipal);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--colorSecundario);
+  background: rgba(1, 163, 238, 0.1);
+  border: 1px solid rgba(1, 163, 238, 0.25);
+  border-radius: var(--radioPill);
+}
+
+.section-header__title {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-extrabold);
+  background: linear-gradient(135deg, var(--colorBase) 40%, var(--colorSecundario) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: var(--space-4);
+}
+
+.section-header__subtitle {
+  font-size: var(--fs-md);
+  color: var(--colorTextoMuted);
+  max-width: 52ch;
+  margin-inline: auto;
+}
+
+
+/* ================================================================
+   05. HEADER & NAVEGACIÓN PRINCIPAL
+   ================================================================
+
+   Estados:
+   • Default (top)       → fondo transparente con blur
+   • .header--scrolled   → fondo azul profundo + sombra
+   • .header--open       → menú hamburguesa abierto (móvil)
+
+   nav.js agrega las clases al detectar:
+     - scroll > 80px  → .header--scrolled
+     - click en hamburger → .header--open
+   ================================================================ */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--zSticky);
+  height: var(--alturaHeader);
+  background: linear-gradient(
+    to bottom,
+    rgba(7, 13, 24, 0.95) 0%,
+    rgba(7, 13, 24, 0.6) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition:
+    height var(--transMedia),
+    background var(--transMedia),
+    border-color var(--transMedia),
+    box-shadow var(--transMedia);
+}
+
+.header--scrolled {
+  height: var(--alturaHeaderScrolled);
+  background: rgba(2, 51, 106, 0.97);
+  border-bottom-color: var(--colorBorde);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* ── Logotipo ── */
+.header__logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: var(--zElevado);
+}
+
+.header__logo-img {
+  height: 38px;
+  width: auto;
+  transition: opacity var(--transRapida);
+}
+
+.header__logo:hover .header__logo-img {
+  opacity: 0.85;
+}
+
+/* ── Navegación desktop ── */
+.header__nav {
+  display: flex;
+  align-items: center;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.header__nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--fuentePrincipal);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(254, 254, 254, 0.75);
+  border-radius: var(--radioBase);
+  transition:
+    color var(--transRapida),
+    background var(--transRapida);
+}
+
+/* Subrayado animado */
+.header__nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: var(--space-3);
+  right: var(--space-3);
+  height: 1.5px;
+  background: var(--gradienteAcento);
+  border-radius: var(--radioPill);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--transMedia);
+}
+
+.header__nav-link:hover {
+  color: var(--colorBase);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.header__nav-link:hover::after,
+.header__nav-link--active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.header__nav-link--active {
+  color: var(--colorSecundario);
+}
+
+/* CTA en la nav */
+.header__nav-link--cta {
+  margin-left: var(--space-3);
+  padding: var(--space-2) var(--space-5);
+  background: rgba(0, 126, 207, 0.15);
+  border: 1px solid rgba(0, 126, 207, 0.4);
+  color: var(--colorSecundario);
+  border-radius: var(--radioBase);
+  font-weight: var(--fw-semibold);
+}
+
+.header__nav-link--cta::after {
+  display: none;
+}
+
+.header__nav-link--cta:hover {
+  background: var(--colorPrimario);
+  border-color: var(--colorPrimario);
+  color: var(--colorBase);
+  box-shadow: 0 0 20px rgba(0, 126, 207, 0.4);
+}
+
+/* ── Botón hamburguesa ── */
+.header__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: var(--space-2);
+  background: transparent;
+  border: 1px solid var(--colorBorde);
+  border-radius: var(--radioBase);
+  cursor: pointer;
+  z-index: var(--zElevado);
+  transition: border-color var(--transRapida), background var(--transRapida);
+}
+
+.header__hamburger:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--colorPrimario);
+}
+
+.header__hamburger-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--colorBase);
+  border-radius: var(--radioPill);
+  transform-origin: center;
+  transition:
+    transform var(--transMedia),
+    opacity var(--transRapida),
+    width var(--transMedia);
+}
+
+/* Animación a X */
+.header--open .header__hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.header--open .header__hamburger-bar:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.header--open .header__hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ================================================================
+   RESPONSIVE — Menú móvil
+   Breakpoint: ≤ 768px
+   ================================================================ */
+
+@media (max-width: 768px) {
+
+  .header__hamburger {
+    display: flex;
+  }
+
+  /* Panel off-canvas */
+  .header__nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(320px, 85vw);
+    background: var(--colorFondoSuperficie);
+    border-left: 1px solid var(--colorBorde);
+    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--space-24) var(--space-8) var(--space-10);
+    transform: translateX(100%);
+    visibility: hidden;
+    transition:
+      transform var(--transLenta),
+      visibility var(--transLenta);
+  }
+
+  .header--open .header__nav {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  /* Overlay oscuro detrás del panel */
+  .header__nav::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 13, 24, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity var(--transLenta);
+    pointer-events: none;
+  }
+
+  .header--open .header__nav::before {
+    opacity: 1;
+  }
+
+  /* Lista en columna */
+  .header__nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+  }
+
+  .header__nav-item {
+    width: 100%;
+    border-bottom: 1px solid var(--colorBorde);
+  }
+
+  .header__nav-item:first-child {
+    border-top: 1px solid var(--colorBorde);
+  }
+
+  .header__nav-link {
+    display: flex;
+    width: 100%;
+    padding: var(--space-5) var(--space-4);
+    font-size: var(--fs-base);
+    color: var(--colorTextoMuted);
+    border-radius: 0;
+    transition:
+      color var(--transRapida),
+      background var(--transRapida),
+      padding-left var(--transMedia);
+  }
+
+  .header__nav-link::after {
+    display: none;
+  }
+
+  .header__nav-link:hover {
+    color: var(--colorBase);
+    background: rgba(0, 126, 207, 0.08);
+    padding-left: var(--space-6);
+  }
+
+  .header__nav-link--cta {
+    margin: var(--space-6) 0 0;
+    padding: var(--space-4) var(--space-6);
+    text-align: center;
+    justify-content: center;
+    border-radius: var(--radioBase);
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .header__logo-img {
+    height: 30px;
+  }
+}
+
+/* ================================================================
+   06. HERO — SLIDER PRINCIPAL
+   ================================================================
+ 
+   Estructura visual:
+   • Fondo de imagen full-bleed por slide (.hero__slide--N)
+   • Overlay degradado oscuro para legibilidad del texto
+   • Contenido centrado verticalmente con flexbox
+   • Controles: flechas laterales + dots inferiores
+ 
+   Comportamiento JS (slider.js):
+   • .hero__track se desplaza con transform: translateX(-N * 100%)
+   • Las clases .hero__slide--active marcan el slide visible
+   • Autoplay cada 5s, se pausa en hover
+   ================================================================ */
+ 
+/* ── Sección contenedor ── */
+.hero {
+  position: relative;
+  /* Empuja el contenido por debajo del header fijo */
+  padding-top: var(--alturaHeader);
+  overflow: hidden;
+}
+ 
+/* ── Slider wrapper: establece el viewport de recorte ── */
+.hero__slider {
+  position: relative;
+  width: 100%;
+  /* Altura fluida: mínimo en móvil, cómodo en desktop */
+  height: clamp(520px, 88vh, 820px);
+  overflow: hidden;
+  /* Detener autoplay al hacer hover */
+  cursor: default;
+}
+ 
+.hero__slider:hover .hero__track {
+  animation-play-state: paused;
+}
+ 
+/* ── Track: contenedor de todos los slides en fila ── */
+.hero__track {
+  display: flex;
+  height: 100%;
+  /* JS mueve esta propiedad: transform: translateX(-N * 100%) */
+  transition: transform 700ms cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+ 
+/* ── Slide base ── */
+.hero__slide {
+  position: relative;
+  flex: 0 0 100%;   /* Cada slide ocupa exactamente el 100% del viewport */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+ 
+  /* Imagen de fondo: cada slide tiene su modificador en CSS */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+ 
+  /* Fallback si la imagen no carga */
+  background-color: var(--colorProfundo);
+}
+ 
+/*
+   Imágenes de fondo por slide.
+   Sustituir las rutas por las imágenes reales del cliente.
+   Usar WebP para mejor rendimiento.
+*/
+.hero__slide:nth-child(1) {
+  background-image: url('../assets/img/hero01.webp');
+}
+.hero__slide--2 {
+  background-image: url('../assets/img/hero02.webp');
+}
+.hero__slide--3 {
+  background-image: url('../assets/img/hero03.webp');
+}
+.hero__slide--4 {
+  background-image: url('../assets/img/hero04.webp');
+}
+ 
+/* ── Overlay degradado sobre la imagen ── */
+.hero__slide-overlay {
+  position: absolute;
+  inset: 0;
+  /* Degradado técnico: más denso abajo (donde va el texto) */
+  background:
+    linear-gradient(
+      105deg,
+      rgba(7, 13, 24, 0.88) 0%,
+      rgba(2, 51, 106, 0.65) 50%,
+      rgba(7, 13, 24, 0.40) 100%
+    );
+  /* Línea decorativa lateral izquierda — detalle "instrumento" */
+  border-left: 3px solid var(--colorPrimario);
+}
+ 
+/* Detalle decorativo: línea horizontal en la parte inferior del slide */
+.hero__slide-overlay::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradienteAcento);
+  opacity: 0.6;
+}
+ 
+/* ── Contenido del slide (texto + CTA) ── */
+.hero__slide-content {
+  position: relative;     /* Sobre el overlay */
+  z-index: var(--zElevado);
+  max-width: 640px;
+  padding-top: var(--space-10);
+  padding-bottom: var(--space-10);
+ 
+  /* Animación de entrada — se activa con .hero__slide--active */
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms ease 200ms,
+    transform 600ms ease 200ms;
+}
+ 
+/* Slide activo: mostrar contenido */
+.hero__slide--active .hero__slide-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+ 
+/* ── Título del slide ── */
+.hero__slide-title {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-extrabold);
+  line-height: 1.1;
+  color: var(--colorBase);
+  margin-bottom: var(--space-5);
+ 
+  /* Resaltar la primera palabra con el color de acento */
+  /* Técnica: usar un <em> en el HTML si se desea selectividad */
+}
+ 
+/* ── Párrafo del slide ── */
+.hero__slide-text {
+  font-size: var(--fs-md);
+  line-height: 1.7;
+  color: rgba(254, 254, 254, 0.82);
+  margin-bottom: var(--space-8);
+  max-width: 52ch;
+}
+ 
+/* ── CTA del slide ── */
+.hero__slide-cta {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--fs-sm);
+}
+ 
+/* ── Control: flechas prev / next ── */
+.hero__control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: var(--zElevado);
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+ 
+  background: rgba(2, 51, 106, 0.6);
+  border: 1px solid rgba(0, 126, 207, 0.35);
+  border-radius: var(--radioBase);
+  color: var(--colorBase);
+  font-size: 1rem;
+  cursor: pointer;
+ 
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+ 
+  transition:
+    background var(--transMedia),
+    border-color var(--transMedia),
+    box-shadow var(--transMedia),
+    transform var(--transRapida);
+}
+ 
+.hero__control:hover {
+  background: var(--colorPrimario);
+  border-color: var(--colorPrimario);
+  box-shadow: var(--sombraGlow);
+}
+ 
+.hero__control:active {
+  transform: translateY(-50%) scale(0.94);
+}
+ 
+.hero__control--prev { left: var(--space-6); }
+.hero__control--next { right: var(--space-6); }
+ 
+/* ── Dots — indicadores de posición ── */
+.hero__dots {
+  position: absolute;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--zElevado);
+  display: flex;
+  gap: var(--space-2);
+}
+ 
+.hero__dot {
+  width: 28px;
+  height: 4px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radioPill);
+  background: rgba(254, 254, 254, 0.3);
+  cursor: pointer;
+  transition:
+    background var(--transMedia),
+    width var(--transMedia),
+    box-shadow var(--transRapida);
+}
+ 
+.hero__dot:hover {
+  background: rgba(254, 254, 254, 0.6);
+}
+ 
+.hero__dot--active {
+  width: 48px;   /* Dot activo más ancho: indicador visual de posición */
+  background: var(--gradienteAcento);
+  box-shadow: 0 0 10px rgba(1, 163, 238, 0.5);
+}
+ 
+/* ── Responsive Hero ── */
+@media (max-width: 768px) {
+ 
+  .hero {
+    padding-top: var(--alturaHeaderScrolled);
+  }
+ 
+  .hero__slider {
+    height: clamp(480px, 90vh, 620px);
+  }
+ 
+  .hero__slide-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(7, 13, 24, 0.55) 0%,
+        rgba(7, 13, 24, 0.92) 100%
+      );
+    border-left: none;
+  }
+ 
+  .hero__slide-content {
+    max-width: 100%;
+    text-align: center;
+    padding-top: var(--space-16);
+  }
+ 
+  .hero__slide-text {
+    margin-inline: auto;
+  }
+ 
+  /* Ocultar flechas en móvil — swipe táctil las reemplaza */
+  .hero__control {
+    display: none;
+  }
+ 
+  .hero__dots {
+    bottom: var(--space-5);
+  }
+}
+ 
+@media (max-width: 480px) {
+  .hero__slide-title {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+  }
+}
+
+/* ================================================================
+   07. PRODUCTOS — Sección de categorías
+   ================================================================
+ 
+   Estructura:
+   • .products              → sección contenedor
+   • .products__header      → encabezado (reutiliza .section-header)
+   • .products__grid        → cuadrícula de tarjetas con CSS Grid
+   • .products__grid-item   → celda de la cuadrícula
+   • .products__cta-wrapper → CTA general al pie de la sección
+   • .category-card         → componente de tarjeta de categoría
+       __media              → contenedor de imagen con overflow hidden
+       __img                → fotografía de la categoría
+       __body               → zona de texto (título + descripción)
+       __title              → h3 de la categoría
+       __description        → párrafo descriptivo
+       __footer             → CTA "Solicitar cotización"
+ 
+   Comportamiento visual:
+   • La imagen hace zoom suave al hacer hover sobre la card
+   • La card eleva su posición (translateY) y refuerza su sombra
+   • Una línea de acento azul aparece en la parte superior
+     de la card al hacer hover (pseudo-elemento ::before)
+   • El CTA transiciona de outline a filled al hacer hover en la card
+   ================================================================ */
+ 
+/* ── Sección contenedor ── */
+.products {
+  padding-block: var(--space-24);
+  /* Fondo ligeramente más claro que el sitio para separar visualmente */
+  background-color: var(--colorFondoSuperficie);
+  /* Línea decorativa superior — detalle técnico de separación de secciones */
+  border-top: 1px solid var(--colorBorde);
+  position: relative;
+  overflow: hidden;
+}
+ 
+/*
+   Patrón de puntos de fondo — evoca papel milimetrado de laboratorio.
+   Se genera con gradientes radiales sin necesidad de imágenes.
+*/
+.products::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 126, 207, 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+ 
+/* El container va sobre el patrón de fondo */
+.products .container {
+  position: relative;
+  z-index: 1;
+}
+ 
+/* ── Encabezado de sección ── */
+.products__header {
+  /* Hereda .section-header — solo se añade el margen inferior */
+  margin-bottom: var(--space-16);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   GRID DE CATEGORÍAS
+   Layout: 3 columnas en desktop, 2 en tablet, 1 en móvil.
+   Se usa auto-fill + minmax para adaptación fluida sin breakpoints
+   adicionales en la mayoría de los casos.
+   ──────────────────────────────────────────────────────────────── */
+.products__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ 
+/* ── CTA general al pie ── */
+.products__cta-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-12);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   .category-card — Componente de tarjeta de categoría
+   ──────────────────────────────────────────────────────────────── */
+.category-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;        /* Imagen → body → footer en columna */
+  height: 100%;                  /* Todas las cards misma altura en la fila */
+ 
+  background-color: var(--colorFondoSitio);
+  border: 1px solid var(--colorBorde);
+  border-radius: var(--radioLg);
+  overflow: hidden;              /* Contiene el zoom de la imagen */
+ 
+  box-shadow: var(--sombraCard);
+ 
+  transition:
+    transform var(--transMedia),
+    box-shadow var(--transMedia),
+    border-color var(--transMedia);
+}
+ 
+/*
+   Línea de acento en la parte superior de la card.
+   Estado inicial: invisible (scaleX 0).
+   Se activa en hover.
+*/
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradienteAcento);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transMedia);
+  z-index: 2;
+}
+ 
+/* ── Estados hover de la card ── */
+.category-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombraElevada);
+  border-color: rgba(0, 126, 207, 0.4);
+}
+ 
+.category-card:hover::before {
+  transform: scaleX(1);
+}
+ 
+/* ── Media: contenedor de imagen ── */
+.category-card__media {
+  position: relative;
+  /* Aspect ratio fijo 3:2 — todas las imágenes misma proporción */
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background-color: var(--colorFondoElevado); /* Placeholder mientras carga */
+  flex-shrink: 0;
+}
+ 
+/* Imagen: object-fit cover + zoom suave en hover */
+.category-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Evitar nitidez excesiva al escalar */
+  will-change: transform;
+}
+ 
+.category-card:hover .category-card__img {
+  transform: scale(1.06);
+}
+ 
+/*
+   Overlay degradado sobre la imagen.
+   Sutil en estado normal; se intensifica en hover mediante opacity.
+*/
+.category-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(7, 13, 24, 0.55) 100%
+  );
+  opacity: 0.6;
+  transition: opacity var(--transMedia);
+  pointer-events: none;
+}
+ 
+.category-card:hover .category-card__media::after {
+  opacity: 0.3;
+}
+ 
+/* ── Body: zona de texto ── */
+.category-card__body {
+  padding: var(--space-6) var(--space-6) var(--space-4);
+  flex: 1;          /* Ocupa el espacio disponible → empuja el footer abajo */
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+ 
+/* ── Título ── */
+.category-card__title {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-bold);
+  color: var(--colorBase);
+  line-height: 1.25;
+ 
+  /* Transición de color al hover */
+  transition: color var(--transRapida);
+}
+ 
+.category-card:hover .category-card__title {
+  color: var(--colorSecundario);
+}
+ 
+/* ── Descripción ── */
+.category-card__description {
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--colorTextoMuted);
+  max-width: 100%;  /* Anular el max-width global de p */
+  flex: 1;
+}
+ 
+/* ── Footer: CTA ── */
+.category-card__footer {
+  padding: 0 var(--space-6) var(--space-6);
+  /* Separador visual entre descripción y CTA */
+  border-top: 1px solid var(--colorBorde);
+  padding-top: var(--space-5);
+  margin-top: var(--space-2);
+}
+ 
+/* CTA ocupa el ancho completo de la card */
+.category-card__cta {
+  width: 100%;
+  justify-content: center;
+  font-size: var(--fs-xs);
+  padding: var(--space-3) var(--space-4);
+  letter-spacing: 0.06em;
+}
+ 
+/*
+   Al hacer hover en la CARD (no solo en el botón),
+   el CTA se pone en estado filled para invitar al click.
+*/
+.category-card:hover .category-card__cta {
+  background: rgba(0, 126, 207, 0.15);
+  border-color: var(--colorSecundario);
+  color: var(--colorBase);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   RESPONSIVE — Productos
+   ──────────────────────────────────────────────────────────────── */
+ 
+/* Tablet: 2 columnas */
+@media (max-width: 900px) {
+  .products__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+  }
+}
+ 
+/* Móvil grande: 2 columnas más compactas */
+@media (max-width: 600px) {
+  .products {
+    padding-block: var(--space-16);
+  }
+ 
+  .products__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+ 
+  .category-card__body {
+    padding: var(--space-4) var(--space-4) var(--space-3);
+  }
+ 
+  .category-card__footer {
+    padding: var(--space-4) var(--space-4) var(--space-4);
+  }
+ 
+  .category-card__title {
+    font-size: var(--fs-md);
+  }
+ 
+  /* En touch no hay hover real: quitar el translateY para evitar
+     que quede "pegada" arriba después del tap */
+  .category-card:hover {
+    transform: none;
+  }
+}
+ 
+/* Móvil pequeño: 1 columna */
+@media (max-width: 400px) {
+  .products__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================================================
+   08. NOSOTROS
+   ================================================================
+ 
+   Estructura:
+   • .about                  → sección contenedor
+   • .about__header          → encabezado (reutiliza .section-header)
+   • .about__intro           → grid de dos columnas: texto | imagen
+       __intro-text          → bloque de párrafos descriptivos
+       __intro-image         → contenedor de fotografía del equipo
+       __intro-img           → la imagen en sí
+   • .about__cards           → fila de dos tarjetas Misión / Visión
+   • .about-card             → componente de tarjeta con imagen de fondo
+       __overlay             → capa oscura sobre la imagen
+       __content             → texto posicionado sobre el overlay
+       __title               → h3 con ícono
+       __icon                → ícono de Font Awesome
+       __text                → párrafo de misión o visión
+     Modificadores:
+       .about-card--mission  → imagen de fondo slide-mission.webp
+       .about-card--vision   → imagen de fondo slide-vision.webp
+ 
+   Decisión de diseño:
+   El texto de Misión/Visión se muestra SIEMPRE legible sobre la imagen
+   usando un overlay con gradiente direccional. En hover el overlay
+   se aclara ligeramente para revelar más de la fotografía, generando
+   profundidad sin sacrificar legibilidad.
+   ================================================================ */
+ 
+/* ── Sección contenedor ── */
+.about {
+  padding-block: var(--space-24);
+  background-color: var(--colorFondoSitio);
+  border-top: 1px solid var(--colorBorde);
+  position: relative;
+  overflow: hidden;
+}
+ 
+/*
+   Detalle decorativo: arco de degradado en la esquina superior derecha.
+   Aporta profundidad sin ser intrusivo.
+*/
+.about::after {
+  content: '';
+  position: absolute;
+  top: -200px;
+  right: -200px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 126, 207, 0.07) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+ 
+.about .container {
+  position: relative;
+  z-index: 1;
+}
+ 
+/* ── Encabezado ── */
+.about__header {
+  margin-bottom: var(--space-16);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   BLOQUE INTRODUCTORIO
+   Dos columnas: texto a la izquierda, imagen a la derecha.
+   En tablet/móvil colapsa a una sola columna.
+   ──────────────────────────────────────────────────────────────── */
+.about__intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+ 
+/* ── Columna de texto ── */
+.about__intro-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+ 
+.about__intro-text p {
+  font-size: var(--fs-md);
+  line-height: 1.8;
+  color: var(--colorTextoMuted);
+  max-width: 100%;
+}
+ 
+.about__intro-text strong {
+  color: var(--colorBase);
+  font-weight: var(--fw-semibold);
+}
+ 
+/* ── Columna de imagen ── */
+.about__intro-image {
+  position: relative;
+  border-radius: var(--radioLg);
+  overflow: hidden;
+  /* Sombra con tinte azul — coherente con la identidad */
+  box-shadow: var(--sombraElevada);
+}
+ 
+.about__intro-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  /* Mismo zoom suave que las category-cards */
+  transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+ 
+.about__intro-image:hover .about__intro-img {
+  transform: scale(1.04);
+}
+ 
+/*
+   Borde luminoso izquierdo — detalle técnico que reaparece
+   de forma consistente en el diseño (ya estaba en el hero overlay).
+*/
+.about__intro-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gradienteAcento);
+  z-index: 1;
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   TARJETAS MISIÓN / VISIÓN
+   Fila de dos tarjetas con imagen de fondo full-bleed.
+   El texto se superpone con un overlay de degradado.
+   ──────────────────────────────────────────────────────────────── */
+.about__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+ 
+/* ── Tarjeta base ── */
+.about-card {
+  position: relative;
+  min-height: 380px;
+  border-radius: var(--radioLg);
+  overflow: hidden;
+  border: 1px solid var(--colorBorde);
+  box-shadow: var(--sombraCard);
+  cursor: default;
+ 
+  /* Imagen de fondo: definida en modificadores */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Fallback si la imagen no carga */
+  background-color: var(--colorProfundo);
+ 
+  transition:
+    transform var(--transMedia),
+    box-shadow var(--transMedia);
+}
+ 
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombraElevada);
+}
+ 
+/* Imágenes de fondo por modificador */
+.about-card--mission {
+  background-image: url('../assets/img/mision1.webp');
+}
+ 
+.about-card--vision {
+  background-image: url('../assets/img/vision1.webp');
+}
+ 
+/* ── Overlay ── */
+.about-card__overlay {
+  position: absolute;
+  inset: 0;
+  /*
+     Degradado de abajo hacia arriba: opaco en la zona de texto (inferior)
+     y transparente en la superior para dejar ver la imagen.
+  */
+  background: linear-gradient(
+    to top,
+    rgba(2, 51, 106, 0.97) 0%,
+    rgba(7, 13, 24, 0.75) 50%,
+    rgba(7, 13, 24, 0.25) 100%
+  );
+  transition: opacity var(--transMedia);
+}
+ 
+/* En hover se aclara el overlay para revelar más imagen */
+.about-card:hover .about-card__overlay {
+  opacity: 0.85;
+}
+ 
+/* ── Contenido sobre el overlay ── */
+.about-card__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Ancla el texto al fondo de la tarjeta */
+  height: 100%;
+  padding: var(--space-8);
+  min-height: 380px;         /* Mismo que la card para que flex funcione */
+}
+ 
+/* ── Título con ícono ── */
+.about-card__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  color: var(--colorBase);
+  margin-bottom: var(--space-4);
+  /* Línea decorativa bajo el título */
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid rgba(1, 163, 238, 0.35);
+}
+ 
+/* ── Ícono ── */
+.about-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  background: rgba(1, 163, 238, 0.15);
+  border: 1px solid rgba(1, 163, 238, 0.3);
+  border-radius: var(--radioBase);
+  color: var(--colorSecundario);
+  font-size: 1rem;
+}
+ 
+/* ── Texto ── */
+.about-card__text {
+  font-size: var(--fs-sm);
+  line-height: 1.8;
+  color: rgba(254, 254, 254, 0.85);
+  max-width: 100%;
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   RESPONSIVE — Nosotros
+   ──────────────────────────────────────────────────────────────── */
+ 
+/* Tablet: intro en columna, cards en fila (se mantienen) */
+@media (max-width: 900px) {
+  .about__intro {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+ 
+  /* La imagen va debajo del texto en tablet */
+  .about__intro-image {
+    max-height: 320px;
+  }
+ 
+  .about__intro-img {
+    max-height: 320px;
+  }
+}
+ 
+/* Móvil: todo en columna */
+@media (max-width: 640px) {
+  .about {
+    padding-block: var(--space-16);
+  }
+ 
+  .about__cards {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+ 
+  .about-card {
+    min-height: 340px;
+  }
+ 
+  .about-card__content {
+    min-height: 340px;
+    padding: var(--space-6);
+  }
+ 
+  .about-card__title {
+    font-size: var(--fs-lg);
+  }
+ 
+  /* En touch: quitar hover de translateY */
+  .about-card:hover {
+    transform: none;
+  }
+}
+
+/* ================================================================
+   09. FOOTER
+   ================================================================
+ 
+   Estructura:
+   • .footer                 → contenedor principal
+   • .footer__top            → grid de tres columnas
+       __col                 → columna genérica
+       __col--brand          → logo + tagline + redes sociales
+       __col--nav            → navegación rápida
+       __col--contact        → emails, teléfonos, whatsapp
+   • .footer__social         → lista de iconos de redes
+       __social-link         → enlace individual de red social
+   • .footer__col-title      → título de cada columna
+   • .footer__nav-list       → lista de enlaces de navegación
+       __nav-link            → enlace individual
+   • .footer__contact-list   → lista de datos de contacto
+       __contact-item        → fila icono + dato
+       __contact-icon        → icono de Font Awesome
+       __contact-link        → enlace del dato
+   • .footer__divider        → línea horizontal separadora
+   • .footer__bottom         → fila de créditos
+       __legal               → copyright
+       __developer           → crédito del desarrollador (Insomne)
+       __developer-link      → enlace al sitio del desarrollador
+       __heart               → ícono de corazón animado
+ 
+   ── BOTÓN FAB WHATSAPP ──
+   • .whatsapp-fab           → botón flotante fijo
+       __icon                → ícono de WhatsApp
+       __tooltip             → etiqueta visible en hover
+   ================================================================ */
+ 
+/* ── Sección contenedor ── */
+.footer {
+  background-color: var(--colorProfundo);
+  border-top: 1px solid rgba(1, 163, 238, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+ 
+/*
+   Patrón de líneas diagonales en el fondo del footer.
+   Muy sutil — aporta textura técnica sin competir con el contenido.
+*/
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 20px,
+    rgba(255, 255, 255, 0.015) 20px,
+    rgba(255, 255, 255, 0.015) 21px
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+ 
+.footer .container {
+  position: relative;
+  z-index: 1;
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   TOP DEL FOOTER — Tres columnas
+   ──────────────────────────────────────────────────────────────── */
+.footer__top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1.4fr; /* Columna de marca más ancha */
+  gap: var(--space-10);
+  padding-block: var(--space-16);
+  align-items: start;
+}
+ 
+/* ── Columna genérica ── */
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+ 
+/* ── Título de columna ── */
+.footer__col-title {
+  font-family: var(--fuentePrincipal);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--colorSecundario);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--colorBorde);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   COLUMNA MARCA
+   ──────────────────────────────────────────────────────────────── */
+.footer__logo {
+  display: inline-flex;
+  width: fit-content;
+}
+ 
+.footer__logo-img {
+  height: 36px;
+  width: auto;
+  /* Filtro para adaptar el logo a fondo oscuro si es necesario */
+  transition: opacity var(--transRapida);
+}
+ 
+.footer__logo:hover .footer__logo-img {
+  opacity: 0.8;
+}
+ 
+.footer__tagline {
+  font-size: var(--fs-sm);
+  line-height: 1.7;
+  color: var(--colorTextoMuted);
+  max-width: 30ch;
+}
+ 
+/* ── Redes sociales ── */
+.footer__social {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+ 
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radioBase);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--colorBorde);
+  color: var(--colorTextoMuted);
+  font-size: 0.875rem;
+  transition:
+    background var(--transMedia),
+    border-color var(--transMedia),
+    color var(--transRapida),
+    transform var(--transRapida),
+    box-shadow var(--transRapida);
+}
+ 
+.footer__social-link:hover {
+  background: var(--colorPrimario);
+  border-color: var(--colorPrimario);
+  color: var(--colorBase);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 126, 207, 0.35);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   COLUMNA NAVEGACIÓN
+   ──────────────────────────────────────────────────────────────── */
+.footer__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+ 
+.footer__nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-2);
+  font-size: var(--fs-sm);
+  color: var(--colorTextoMuted);
+  transition: color var(--transRapida), gap var(--transMedia);
+}
+ 
+/* Flecha animada que aparece al hacer hover */
+.footer__nav-link::before {
+  content: '›';
+  font-size: 1.1em;
+  color: var(--colorPrimario);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity var(--transMedia),
+    transform var(--transMedia);
+}
+ 
+.footer__nav-link:hover {
+  color: var(--colorBase);
+  gap: var(--space-3);
+}
+ 
+.footer__nav-link:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   COLUMNA CONTACTO
+   ──────────────────────────────────────────────────────────────── */
+.footer__contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+ 
+.footer__contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+ 
+.footer__contact-icon {
+  flex-shrink: 0;
+  width: 16px;
+  margin-top: 3px; /* Alineación óptica con la primera línea de texto */
+  color: var(--colorPrimario);
+  font-size: 0.875rem;
+}
+ 
+.footer__contact-link {
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+  color: var(--colorTextoMuted);
+  word-break: break-all; /* Evita overflow en emails largos */
+  transition: color var(--transRapida);
+}
+ 
+.footer__contact-link:hover {
+  color: var(--colorSecundario);
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   DIVISOR
+   ──────────────────────────────────────────────────────────────── */
+.footer__divider {
+  border: none;
+  border-top: 1px solid var(--colorBorde);
+  margin: 0;
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   BOTTOM DEL FOOTER — Créditos
+   ──────────────────────────────────────────────────────────────── */
+.footer__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding-block: var(--space-6);
+}
+ 
+.footer__legal {
+  font-size: var(--fs-xs);
+  color: var(--colorTextoSutil);
+  max-width: 100%;
+}
+ 
+.footer__developer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--fs-xs);
+  color: var(--colorTextoSutil);
+  max-width: 100%;
+}
+ 
+.footer__developer-link {
+  color: var(--colorSecundario);
+  font-weight: var(--fw-medium);
+  transition: color var(--transRapida);
+}
+ 
+.footer__developer-link:hover {
+  color: var(--colorBase);
+}
+ 
+/* Corazón con latido */
+.footer__heart {
+  color: #ff4d6d;
+  display: inline-block;
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+ 
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1);    }
+  14%       { transform: scale(1.25); }
+  28%       { transform: scale(1);    }
+  42%       { transform: scale(1.2);  }
+  56%       { transform: scale(1);    }
+}
+ 
+ 
+/* ================================================================
+   10. BOTÓN FLOTANTE — WhatsApp FAB
+   ================================================================
+   Posición fija en la esquina inferior derecha.
+   Incluye:
+   • Animación de entrada (slide desde abajo al cargar)
+   • Pulso verde de fondo para llamar la atención
+   • Tooltip que aparece al hacer hover
+   • Se eleva al hacer hover
+   ================================================================ */
+ 
+.whatsapp-fab {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: var(--zFab);
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+ 
+  background: #25d366;   /* Verde WhatsApp oficial */
+  color: #ffffff;
+  box-shadow:
+    0 4px 20px rgba(37, 211, 102, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+ 
+  /* Entrada animada al cargar la página */
+  animation: fab-enter 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1s both;
+ 
+  transition:
+    transform var(--transMedia),
+    box-shadow var(--transMedia);
+}
+ 
+/* Anillo de pulso — atrae la atención sin ser invasivo */
+.whatsapp-fab::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  animation: fab-pulse 2.5s ease-out infinite;
+  z-index: -1;
+}
+ 
+.whatsapp-fab:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow:
+    0 8px 32px rgba(37, 211, 102, 0.55),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+}
+ 
+/* ── Ícono ── */
+.whatsapp-fab__icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  display: block;
+}
+ 
+/* ── Tooltip ── */
+.whatsapp-fab__tooltip {
+  position: absolute;
+  right: calc(100% + var(--space-3));
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+ 
+  background: var(--colorFondoSuperficie);
+  color: var(--colorBase);
+  font-family: var(--fuenteSecundaria);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radioBase);
+  border: 1px solid var(--colorBorde);
+  box-shadow: var(--sombraCard);
+ 
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--transMedia),
+    transform var(--transMedia);
+}
+ 
+/* Triángulo del tooltip */
+.whatsapp-fab__tooltip::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: var(--colorFondoSuperficie);
+  border-right: 1px solid var(--colorBorde);
+  border-top: 1px solid var(--colorBorde);
+}
+ 
+.whatsapp-fab:hover .whatsapp-fab__tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+ 
+/* ── Keyframes FAB ── */
+@keyframes fab-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+ 
+@keyframes fab-pulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(1.55); opacity: 0;   }
+  100% { transform: scale(1.55); opacity: 0;   }
+}
+ 
+/* ────────────────────────────────────────────────────────────────
+   RESPONSIVE — Footer y FAB
+   ──────────────────────────────────────────────────────────────── */
+ 
+/* Tablet: dos columnas en el footer top */
+@media (max-width: 900px) {
+  .footer__top {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+ 
+  /* Columna de marca ocupa las dos columnas */
+  .footer__col--brand {
+    grid-column: 1 / -1;
+  }
+ 
+  .footer__tagline {
+    max-width: 48ch;
+  }
+}
+ 
+/* Móvil: una sola columna */
+@media (max-width: 560px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    padding-block: var(--space-12);
+  }
+ 
+  .footer__bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+  }
+ 
+  /* FAB más pequeño y más cerca del borde en móvil */
+  .whatsapp-fab {
+    width: 50px;
+    height: 50px;
+    bottom: var(--space-5);
+    right: var(--space-5);
+  }
+ 
+  .whatsapp-fab__icon {
+    font-size: 1.4rem;
+  }
+ 
+  /* Ocultar tooltip en móvil — el tap es suficiente señal */
+  .whatsapp-fab__tooltip {
+    display: none;
+  }
+}
