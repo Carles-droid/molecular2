@@ -6,25 +6,22 @@
   <meta name="description" content="Molecular Solutions — Insumos y equipamiento para laboratorios e instituciones educativas de nivel superior." />
   <meta name="author" content="Insomne" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
-
+  <link rel="icon" type="image/svg+xml" href="assets/icons/adn.svg" />
   <title>Molecular Solutions | Insumos para Laboratorio</title>
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/style.css" />
-
 </head>
-
+ 
 <body>
-
+ 
   <!-- =====================================================
        SKIP LINK — Accesibilidad: permite saltar al contenido
        principal desde lectores de pantalla / teclado
   ====================================================== -->
   <a class="skip-link" href="#main-content">Ir al contenido principal</a>
-
-
+ 
+ 
   <!-- =====================================================
        HEADER
        Contiene: logotipo + navegación principal
@@ -34,18 +31,13 @@
   ====================================================== -->
   <header class="header" id="site-header" role="banner">
     <div class="container header__inner">
-
-      <!-- Logotipo -->
+ 
+      <!-- Logotipo — texto vertical: Molecular arriba, Solutions abajo -->
       <a href="#inicio" class="header__logo" aria-label="Molecular Solutions — Ir al inicio">
-        <img
-          src="assets/icons/logo.svg"
-          alt="Logotipo de Molecular Solutions"
-          class="header__logo-img"
-          width="180"
-          height="48"
-        />
+        <span class="header__logo-text">Molecular</span>
+        <strong class="header__logo-text--accent">Solutions</strong>
       </a>
-
+ 
       <!-- Botón hamburguesa (visible solo en móvil) -->
       <button
         class="header__hamburger"
@@ -58,7 +50,7 @@
         <span class="header__hamburger-bar"></span>
         <span class="header__hamburger-bar"></span>
       </button>
-
+ 
       <!-- Navegación principal -->
       <nav class="header__nav" id="primary-nav" aria-label="Navegación principal">
         <ul class="header__nav-list" role="list">
@@ -80,19 +72,18 @@
         </ul>
       </nav>
       <!-- /header__nav -->
-
+ 
     </div>
     <!-- /container -->
   </header>
   <!-- /header -->
-
-
+ 
+ 
   <!-- =====================================================
        MAIN — Contenido principal del sitio
   ====================================================== -->
   <main id="main-content">
-
-
+ 
     <!-- =================================================
          SECCIÓN 1: HERO / SLIDER
          id="inicio" — ancla de navegación
@@ -104,17 +95,17 @@
          JS: slider.js (autoplay + navegación manual)
     ================================================== -->
     <section class="hero" id="inicio" aria-label="Presentación principal">
-
+ 
       <div class="hero__slider" role="region" aria-roledescription="carrusel" aria-label="Destacados">
-
+ 
         <!-- Track deslizante -->
         <div class="hero__track" id="hero-track">
-
+ 
           <!-- ---- Slide 1 ---- -->
           <article class="hero__slide" aria-label="Diapositiva 1 de 4">
             <!--
               Imagen de fondo declarada en CSS mediante la clase
-              modificadora .hero__slide--1 para mantener separación
+              modificadora .hero__slide--N para mantener separación
               de responsabilidades (estructura vs presentación).
             -->
             <div class="hero__slide-overlay"></div>
@@ -132,7 +123,7 @@
             </div>
           </article>
           <!-- /Slide 1 -->
-
+ 
           <!-- ---- Slide 2 ---- -->
           <article class="hero__slide hero__slide--2" aria-label="Diapositiva 2 de 4">
             <div class="hero__slide-overlay"></div>
@@ -150,7 +141,7 @@
             </div>
           </article>
           <!-- /Slide 2 -->
-
+ 
           <!-- ---- Slide 3 ---- -->
           <article class="hero__slide hero__slide--3" aria-label="Diapositiva 3 de 4">
             <div class="hero__slide-overlay"></div>
@@ -168,7 +159,7 @@
             </div>
           </article>
           <!-- /Slide 3 -->
-
+ 
           <!-- ---- Slide 4 ---- -->
           <article class="hero__slide hero__slide--4" aria-label="Diapositiva 4 de 4">
             <div class="hero__slide-overlay"></div>
@@ -186,10 +177,10 @@
             </div>
           </article>
           <!-- /Slide 4 -->
-
+ 
         </div>
         <!-- /hero__track -->
-
+ 
         <!-- Controles de navegación -->
         <button
           class="hero__control hero__control--prev"
@@ -198,7 +189,7 @@
         >
           <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
         </button>
-
+ 
         <button
           class="hero__control hero__control--next"
           aria-label="Siguiente diapositiva"
@@ -206,26 +197,26 @@
         >
           <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
         </button>
-
-        <!-- Indicadores (dots) — generados también por JS para mayor flexibilidad -->
+ 
+        <!-- Indicadores (dots) -->
         <div class="hero__dots" role="tablist" aria-label="Seleccionar diapositiva">
           <button class="hero__dot hero__dot--active" role="tab" aria-selected="true"  aria-label="Ir a diapositiva 1" data-slide="0"></button>
           <button class="hero__dot"                   role="tab" aria-selected="false" aria-label="Ir a diapositiva 2" data-slide="1"></button>
           <button class="hero__dot"                   role="tab" aria-selected="false" aria-label="Ir a diapositiva 3" data-slide="2"></button>
           <button class="hero__dot"                   role="tab" aria-selected="false" aria-label="Ir a diapositiva 4" data-slide="3"></button>
         </div>
-
+ 
       </div>
       <!-- /hero__slider -->
-
+ 
     </section>
     <!-- /hero -->
-
-
+ 
+ 
     <!-- =================================================
          SECCIÓN 2: PRODUCTOS
          id="productos" — ancla de navegación
-
+ 
          Estructura actual (v2):
            • .products__header   → encabezado de sección
            • .products__grid     → cuadrícula de tarjetas de categoría
@@ -236,7 +227,7 @@
                __title           → nombre de la categoría (h3)
                __description     → descripción breve
                __footer          → CTA "Solicitar cotización"
-
+ 
          ESCALABILIDAD:
            Agregar o quitar categorías solo requiere copiar/eliminar
            un bloque <li class="products__grid-item">.
@@ -244,9 +235,9 @@
            añadir data-category al <li> y restaurar filter.js.
     ================================================== -->
     <section class="products" id="productos" aria-labelledby="products-heading">
-
+ 
       <div class="container">
-
+ 
         <!-- Encabezado de sección -->
         <header class="section-header products__header">
           <span class="section-header__tag">Catálogo</span>
@@ -258,10 +249,10 @@
             y proceso educativo.
           </p>
         </header>
-
+ 
         <!-- Cuadrícula de categorías -->
         <ul class="products__grid" role="list">
-
+ 
           <!--
             ESTRUCTURA DE TARJETA DE CATEGORÍA (.category-card)
             ─────────────────────────────────────────────────────
@@ -269,7 +260,7 @@
             La imagen ilustra el tipo de producto.
             Para agregar una categoría: duplicar el bloque <li> completo.
           -->
-
+ 
           <!-- Categoría 1 — Reactivos -->
           <li class="products__grid-item">
             <article class="category-card">
@@ -298,7 +289,7 @@
               </div>
             </article>
           </li>
-
+ 
           <!-- Categoría 2 — Vidriería -->
           <li class="products__grid-item">
             <article class="category-card">
@@ -327,7 +318,7 @@
               </div>
             </article>
           </li>
-
+ 
           <!-- Categoría 3 — Equipos -->
           <li class="products__grid-item">
             <article class="category-card">
@@ -356,7 +347,7 @@
               </div>
             </article>
           </li>
-
+ 
           <!-- Categoría 4 — Consumibles -->
           <li class="products__grid-item">
             <article class="category-card">
@@ -385,7 +376,7 @@
               </div>
             </article>
           </li>
-
+ 
           <!-- Categoría 5 — Seguridad -->
           <li class="products__grid-item">
             <article class="category-card">
@@ -414,7 +405,7 @@
               </div>
             </article>
           </li>
-
+ 
           <!-- Categoría 6 — Solventes -->
           <li class="products__grid-item">
             <article class="category-card">
@@ -443,24 +434,24 @@
               </div>
             </article>
           </li>
-
+ 
         </ul>
         <!-- /products__grid -->
-
+ 
         <!-- CTA general -->
         <div class="products__cta-wrapper">
           <a href="#contacto" class="btn btn--primary">
             Solicitar catálogo completo
           </a>
         </div>
-
+ 
       </div>
       <!-- /container -->
-
+ 
     </section>
     <!-- /products -->
-
-
+ 
+ 
     <!-- =================================================
          SECCIÓN 3: NOSOTROS
          id="nosotros" — ancla de navegación
@@ -471,9 +462,9 @@
          usando posicionamiento absoluto y overlay.
     ================================================== -->
     <section class="about" id="nosotros" aria-labelledby="about-heading">
-
+ 
       <div class="container">
-
+ 
         <!-- Encabezado de sección -->
         <header class="section-header about__header">
           <span class="section-header__tag">Quiénes somos</span>
@@ -481,31 +472,27 @@
             Comprometidos con la ciencia
           </h2>
         </header>
-
+ 
         <!-- Bloque de texto introductorio -->
         <div class="about__intro">
           <div class="about__intro-text">
             <p>
-                <strong>Molecular Solutions</strong> es una empresa mexicana fundada
-                en la Ciudad de México con una misión clara: democratizar el acceso
-                a insumos de laboratorio de calidad para instituciones educativas
-                y centros de investigación en todo el país.
-                </p>
-                <p>
-                Somos un equipo joven y apasionado por la ciencia, comprometido con
-                ofrecer productos certificados, atención personalizada y tiempos de
-                entrega competitivos. Aunque somos nuevos en el mercado, respaldamos
-                cada venta con asesoría técnica especializada y un servicio
-                postventa que nos distingue.
+              <strong>Molecular Solutions</strong> es una empresa mexicana fundada
+              en la Ciudad de México con una misión clara: democratizar el acceso
+              a insumos de laboratorio de calidad para instituciones educativas
+              y centros de investigación en todo el país.
+            </p>
+            <p>
+              Somos un equipo joven y apasionado por la ciencia, comprometido con
+              ofrecer productos certificados, atención personalizada y tiempos de
+              entrega competitivos. Aunque somos nuevos en el mercado, respaldamos
+              cada venta con asesoría técnica especializada y un servicio
+              postventa que nos distingue.
             </p>
           </div>
           <div class="about__intro-image">
-            <!--
-              Imagen ilustrativa del equipo o instalaciones.
-              Sustituir src y alt con imagen real.
-            -->
             <img
-              src="assets/img/hero04.webp"
+              src="assets/img/nosotros/nosotros.jpg"
               alt="Equipo de Molecular Solutions en el laboratorio"
               class="about__intro-img"
               loading="lazy"
@@ -514,24 +501,19 @@
             />
           </div>
         </div>
-
+ 
         <!-- Tarjetas Misión y Visión -->
         <div class="about__cards">
-
+ 
           <!-- Tarjeta Misión -->
           <article class="about-card about-card--mission" aria-label="Misión">
-            <!--
-              La imagen de fondo se define en CSS mediante
-              .about-card--mission { background-image: url(...) }
-              El overlay oscuro va dentro del propio card.
-            -->
             <div class="about-card__overlay"></div>
             <div class="about-card__content">
               <h3 class="about-card__title">
                 <i class="fa-solid fa-flask about-card__icon" aria-hidden="true"></i>
                 Misión
               </h3>
-             <p class="about-card__text">
+              <p class="about-card__text">
                 Proveer a laboratorios, universidades y centros de investigación
                 de la Ciudad de México y del país, insumos y equipamiento de
                 calidad certificada, acompañados de asesoría técnica honesta y
@@ -539,10 +521,10 @@
                 no debe ser un obstáculo para quienes hacen ciencia: nuestra
                 labor es que cada institución, grande o pequeña, cuente con
                 lo que necesita para trabajar con precisión y seguridad.
-             </p>
+              </p>
             </div>
           </article>
-
+ 
           <!-- Tarjeta Visión -->
           <article class="about-card about-card--vision" aria-label="Visión">
             <div class="about-card__overlay"></div>
@@ -559,47 +541,46 @@
                 necesidades de nuestros clientes. En cinco años, queremos que
                 ningún laboratorio en el país tenga que frenar su trabajo
                 por falta de insumos.
-                </p>
-              
+              </p>
             </div>
           </article>
-
+ 
         </div>
         <!-- /about__cards -->
-
+ 
       </div>
       <!-- /container -->
-
+ 
     </section>
     <!-- /about -->
-        <!-- =================================================
+ 
+ 
+    <!-- =================================================
          SECCIÓN 4: CLIENTES — Carrusel infinito de logos
          id="clientes" — ancla de navegación
  
          TÉCNICA DE LOOP INFINITO (CSS puro):
-         El .clients__track se duplica con aria-hidden="true".
-         La animación desplaza ambos tracks juntos; cuando el primero
-         sale de pantalla, el segundo (idéntico) ya está en posición,
-         creando un loop visual sin cortes y sin JavaScript.
+         El .clients__belt contiene dos tracks idénticos en fila.
+         La animación desplaza el belt el 50% de su ancho total
+         (= un track exacto), creando un loop sin cortes ni JS.
  
          ── CÓMO AGREGAR UN LOGO ──────────────────────────────────
-         1. Copiar el archivo .svg a assets/images/clients/
-         2. Agregar un <li> al track ORIGINAL (el primero):
+         1. Copiar el archivo .svg a assets/icons/
+         2. Agregar un <li> al track original (el primero):
  
               <li class="clients__logo-item">
                 <img
-                  src="assets/images/clients/nombre-cliente.svg"
+                  src="assets/icons/nombre.svg"
                   alt="Nombre de la institución"
                   class="clients__logo-img"
-                  loading="lazy"
-                  width="140"
-                  height="60"
+                  loading="lazy" width="140" height="60"
                 />
               </li>
  
-         3. Duplicar el mismo <li> en el track con aria-hidden="true"
-            manteniendo alt="" en la copia (evita lecturas duplicadas).
-         4. No se requieren cambios en CSS ni JS.
+         3. Duplicar el mismo <li> en el track aria-hidden="true"
+            con alt="" en la copia.
+         4. Cuando haya 8 logos distintos, eliminar la repetición
+            interna de cada track y ajustar --marquee-duration a ~36s.
          ─────────────────────────────────────────────────────────
     ================================================== -->
     <section class="clients" id="clientes" aria-labelledby="clients-heading">
@@ -616,78 +597,70 @@
       <!-- Carrusel — ancho completo, fuera del container -->
       <div class="clients__marquee" aria-label="Logotipos de instituciones cliente" role="img">
  
-        <!-- Belt: tira animada que contiene ambos tracks.
-             Es el único elemento que se desplaza. -->
+        <!-- Belt: único elemento animado que arrastra ambos tracks -->
         <div class="clients__belt">
  
-        <!-- ── Track original (accesible) ── -->
-        <ul class="clients__track" role="list">
+          <!-- ── Track original (accesible) ──
+               Los 4 logos se repiten internamente para superar el ancho
+               del viewport. Eliminar la repetición al tener 8 logos distintos.
+          -->
+          <ul class="clients__track" role="list">
+            <li class="clients__logo-item">
+              <img src="assets/icons/unam.svg"  alt="Universidad Nacional Autónoma de México" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/uam.svg"   alt="Universidad Autónoma Metropolitana"      class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/ipn.svg"   alt="Instituto Politécnico Nacional"          class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/tecM.svg"  alt="Tecnológico de Monterrey"                class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <!-- Repetición interna — remover al tener 8 logos distintos -->
+            <li class="clients__logo-item" aria-hidden="true">
+              <img src="assets/icons/unam.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item" aria-hidden="true">
+              <img src="assets/icons/uam.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item" aria-hidden="true">
+              <img src="assets/icons/ipn.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item" aria-hidden="true">
+              <img src="assets/icons/tecM.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+          </ul>
+          <!-- /track original -->
  
-          <li class="clients__logo-item">
-            <img
-              src="assets/icons/unam.svg"
-              alt="Universidad Nacional Autónoma de México"
-              class="clients__logo-img"
-              loading="lazy"
-              width="140"
-              height="60"
-            />
-          </li>
- 
-          <li class="clients__logo-item">
-            <img
-              src="assets/icons/uam.svg"
-              alt="Universidad Autónoma Metropolitana"
-              class="clients__logo-img"
-              loading="lazy"
-              width="140"
-              height="60"
-            />
-          </li>
- 
-          <li class="clients__logo-item">
-            <img
-              src="assets/icons/ipn.svg"
-              alt="Instituto Politécnico Nacional"
-              class="clients__logo-img"
-              loading="lazy"
-              width="140"
-              height="60"
-            />
-          </li>
- 
-          <li class="clients__logo-item">
-            <img
-              src="assets/icons/tecM.svg"
-              alt="Tecnológico de Monterrey"
-              class="clients__logo-img"
-              loading="lazy"
-              width="140"
-              height="60"
-            />
-          </li>
- 
-        </ul>
-        <!-- /track original -->
- 
-        <!-- ── Track duplicado para loop (oculto a lectores de pantalla) ── -->
-        <ul class="clients__track" role="list" aria-hidden="true">
- 
-          <li class="clients__logo-item">
-            <img src="assets/icons/unam.svg"          alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/icons/uam.svg"           alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/icons/ipn.svg"           alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
-          </li>
-          <li class="clients__logo-item">
-            <img src="assets/icons/tecM.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
-          </li>
- 
-        </ul>
-        <!-- /track duplicado -->
+          <!-- ── Track duplicado para loop (oculto a lectores de pantalla) ── -->
+          <ul class="clients__track" role="list" aria-hidden="true">
+            <li class="clients__logo-item">
+              <img src="assets/icons/unam.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/uam.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/ipn.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/tecM.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/unam.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/uam.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/ipn.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/tecM.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+          </ul>
+          <!-- /track duplicado -->
  
         </div>
         <!-- /clients__belt -->
@@ -697,12 +670,12 @@
  
     </section>
     <!-- /clients -->
-
-
+ 
+ 
   </main>
   <!-- /main -->
-
-
+ 
+ 
   <!-- =====================================================
        FOOTER
        Estructura:
@@ -712,23 +685,27 @@
        es el punto natural de contacto final.
   ====================================================== -->
   <footer class="footer" id="contacto" role="contentinfo">
-
+ 
     <div class="container">
-
+ 
       <!-- Top del footer: info principal -->
       <div class="footer__top">
-
+ 
         <!-- Columna 1: Marca y descripción -->
         <div class="footer__col footer__col--brand">
+          <!-- Logo vertical: ícono arriba, nombre abajo -->
           <a href="#inicio" class="footer__logo" aria-label="Molecular Solutions — Inicio">
             <img
-              src="assets/icons/logo.svg"
-              alt="Logotipo de Molecular Solutions en blanco"
+              src="assets/icons/logoMolecular.svg"
+              alt=""
               class="footer__logo-img"
-              width="160"
-              height="42"
+              width="96"
+              height="96"
               loading="lazy"
+              aria-hidden="true"
             />
+            <span class="footer__logo-text">Molecular</span>
+            <strong class="footer__logo-text--accent">Solutions</strong>
           </a>
           <p class="footer__tagline">
             Insumos de calidad para la ciencia que transforma el mundo.
@@ -758,7 +735,7 @@
           </ul>
         </div>
         <!-- /footer__col--brand -->
-
+ 
         <!-- Columna 2: Navegación rápida -->
         <div class="footer__col footer__col--nav">
           <h3 class="footer__col-title">Navegación</h3>
@@ -769,28 +746,28 @@
             <li><a href="#clientes"  class="footer__nav-link">Clientes</a></li>
           </ul>
         </div>
-
+ 
         <!-- Columna 3: Contacto -->
         <div class="footer__col footer__col--contact">
           <h3 class="footer__col-title">Contacto</h3>
           <ul class="footer__contact-list" role="list">
-
+ 
             <!-- Email 1 -->
             <li class="footer__contact-item">
               <i class="fa-solid fa-envelope footer__contact-icon" aria-hidden="true"></i>
-              <a href="/cdn-cgi/l/email-protection#6c1a0902180d1f2c010300090f19000d1e1f030019180503021f420114" class="footer__contact-link">
-                <span class="__cf_email__" data-cfemail="3d4b5853495c4e7d505251585e48515c4f4e525148495452534e135045">[email&#160;protected]</span>
+              <a href="/cdn-cgi/l/email-protection#e99f8c879d889aa98486858c8a9c85889b9a86859c9d8086879ac78491" class="footer__contact-link">
+                <span class="__cf_email__" data-cfemail="99effcf7edf8ead9f4f6f5fcfaecf5f8ebeaf6f5ecedf0f6f7eab7f4e1">[email&#160;protected]</span>
               </a>
             </li>
-
+ 
             <!-- Email 2 -->
             <li class="footer__contact-item">
               <i class="fa-solid fa-envelope footer__contact-icon" aria-hidden="true"></i>
-              <a href="/cdn-cgi/l/email-protection#31525e45584b5052585e5f5442715c5e5d5452445d5043425e5d4445585e5f421f5c49" class="footer__contact-link">
-                <span class="__cf_email__" data-cfemail="bbd8d4cfd2c1dad8d2d4d5dec8fbd6d4d7ded8ced7dac9c8d4d7cecfd2d4d5c895d6c3">[email&#160;protected]</span>
+              <a href="/cdn-cgi/l/email-protection#e78488938e9d86848e88898294a78a888b8284928b869594888b92938e888994c98a9f" class="footer__contact-link">
+                <span class="__cf_email__" data-cfemail="bad9d5ced3c0dbd9d3d5d4dfc9fad7d5d6dfd9cfd6dbc8c9d5d6cfced3d5d4c994d7c2">[email&#160;protected]</span>
               </a>
             </li>
-
+ 
             <!-- Teléfono 1 -->
             <li class="footer__contact-item">
               <i class="fa-solid fa-phone footer__contact-icon" aria-hidden="true"></i>
@@ -798,7 +775,7 @@
                 +52 (55) XXXX XXXX
               </a>
             </li>
-
+ 
             <!-- Teléfono 2 / WhatsApp -->
             <li class="footer__contact-item">
               <i class="fa-brands fa-whatsapp footer__contact-icon" aria-hidden="true"></i>
@@ -811,26 +788,22 @@
                 +52 (55) XXXX XXXX
               </a>
             </li>
-
+ 
           </ul>
         </div>
         <!-- /footer__col--contact -->
-
+ 
       </div>
       <!-- /footer__top -->
-
+ 
       <!-- Divisor -->
       <hr class="footer__divider" />
-
+ 
       <!-- Bottom del footer: créditos -->
       <div class="footer__bottom">
         <p class="footer__legal">
           &copy; <span id="footer-year"></span> Molecular Solutions. Todos los derechos reservados.
         </p>
-        <!--
-          Crédito del desarrollador
-          Modificar el href y el texto con los datos reales de Insomne.
-        -->
         <p class="footer__developer">
           Desarrollado por
           <a
@@ -844,19 +817,16 @@
         </p>
       </div>
       <!-- /footer__bottom -->
-
+ 
     </div>
     <!-- /container -->
-
+ 
   </footer>
   <!-- /footer -->
-
-
+ 
+ 
   <!-- =====================================================
        BOTÓN FLOTANTE — WhatsApp
-       Posición fija en la esquina inferior derecha.
-       El enlace de wa.me incluye un mensaje predefinido
-       codificado en URL para mejorar la tasa de respuesta.
   ====================================================== -->
   <a
     href="https://wa.me/52XXXXXXXXXX?text=Hola%2C%20me%20interesa%20recibir%20informaci%C3%B3n%20sobre%20sus%20productos."
@@ -866,7 +836,6 @@
     aria-label="Contactar por WhatsApp"
   >
     <i class="fa-brands fa-whatsapp whatsapp-fab__icon" aria-hidden="true"></i>
-    <!-- Tooltip visible en hover -->
     <span class="whatsapp-fab__tooltip">¡Escríbenos!</span>
   </a>
 
