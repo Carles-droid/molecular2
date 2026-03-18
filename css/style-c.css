@@ -1,6 +1,6 @@
 /* 
-   MOLECULAR SOLUTIONS — style.css
-   Estilo principal del sitio
+   MOLECULAR SOLUTIONS — style-C.css
+   Propuesta C: Eléctrico minimalista
    Autor: Insomne
    Versión: 1.0.0
 
@@ -38,7 +38,7 @@
   --colorFondoSuperficie: #0d1a2e;
   --colorFondoElevado:    #112240;
   --colorBorde:           #1a3a5c;
-  --colorBordeActivo:     var(--colorPrimario);
+  --colorBordeActivo:     var(--colorSecundario);
 
   /* ── Texto ── */
   --colorTexto:       var(--colorBase);
@@ -132,7 +132,9 @@
 }
 
 
-/*  02. RESET COMPLEMENTARIO A NORMALIZE.CSS */
+/* ================================================================
+   02. RESET COMPLEMENTARIO A NORMALIZE.CSS
+   ================================================================ */
 
 *,
 *::before,
@@ -185,7 +187,10 @@ select {
 }
 
 
-/* 03. BASE & TIPOGRAFÍA GLOBAL */
+/* ================================================================
+   03. BASE & TIPOGRAFÍA GLOBAL
+   ================================================================ */
+
 body {
   font-family: var(--fuenteSecundaria);
   font-size: var(--fs-base);
@@ -245,7 +250,9 @@ a:focus-visible {
 ::-webkit-scrollbar-thumb:hover { background: var(--colorPrimario); }
 
 
-/* 04. UTILIDADES GLOBALES */
+/* ================================================================
+   04. UTILIDADES GLOBALES
+   ================================================================ */
 
 .container {
   width: 100%;
@@ -297,15 +304,16 @@ a:focus-visible {
 .btn:active { transform: translateY(1px); }
 
 .btn--primary {
-  background: var(--gradienteAcento);
-  color: var(--colorBase);
-  box-shadow: 0 4px 16px rgba(1, 163, 238, 0.25);
+  background: var(--colorSecundario);
+  color: #070d18;
+  font-weight: var(--fw-extrabold);
+  box-shadow: 0 4px 16px rgba(1, 163, 238, 0.3);
 }
 
 .btn--primary:hover {
-  background: linear-gradient(135deg, var(--colorSecundario) 0%, var(--colorPrimario) 100%);
+  background: #fefefe;
+  color: var(--colorSecundario);
   box-shadow: var(--sombraGlow);
-  color: var(--colorBase);
 }
 
 .btn--outline {
@@ -364,7 +372,7 @@ a:focus-visible {
 
 .section-header__subtitle {
   font-size: var(--fs-md);
-  color: var(--colorTextoMuted);
+  color: var(--colorPrimario);
   max-width: 52ch;
   margin-inline: auto;
 }
@@ -381,14 +389,10 @@ a:focus-visible {
   right: 0;
   z-index: var(--zSticky);
   height: var(--alturaHeader);
-  background: linear-gradient(
-    to bottom,
-    rgba(7, 13, 24, 0.95) 0%,
-    rgba(7, 13, 24, 0.6) 100%
-  );
+  background: rgba(13, 26, 46, 0.98);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid transparent;
+  border-bottom: 2px solid var(--colorSecundario);
   transition:
     height var(--transMedia),
     background var(--transMedia),
@@ -398,9 +402,9 @@ a:focus-visible {
 
 .header--scrolled {
   height: var(--alturaHeaderScrolled);
-  background: rgba(2, 51, 106, 0.97);
-  border-bottom-color: var(--colorBorde);
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.5);
+  background: rgba(7, 13, 24, 0.99);
+  border-bottom-color: var(--colorSecundario);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.6);
 }
 
 .header__inner {
@@ -413,7 +417,7 @@ a:focus-visible {
 /* ── Logotipo ── */
 .header__logo {
   display: inline-flex;
-  flex-direction: column;   /* Molecular arriba, Solutions abajo */
+  flex-direction: column;
   align-items: flex-start;
   gap: var(--space-1);
   flex-shrink: 0;
@@ -499,13 +503,13 @@ a:focus-visible {
   transform-origin: left;
 }
 
-.header__nav-link--active { color: var(--colorSecundario); }
+.header__nav-link--active { color: var(--colorBase); }
 
 .header__nav-link--cta {
   margin-left: var(--space-3);
   padding: var(--space-2) var(--space-5);
-  background: rgba(0, 126, 207, 0.15);
-  border: 1px solid rgba(0, 126, 207, 0.4);
+  background: transparent;
+  border: 1.5px solid var(--colorSecundario);
   color: var(--colorSecundario);
   border-radius: var(--radioBase);
   font-weight: var(--fw-semibold);
@@ -514,10 +518,10 @@ a:focus-visible {
 .header__nav-link--cta::after { display: none; }
 
 .header__nav-link--cta:hover {
-  background: var(--colorPrimario);
-  border-color: var(--colorPrimario);
-  color: var(--colorBase);
-  box-shadow: 0 0 20px rgba(0, 126, 207, 0.4);
+  background: var(--colorSecundario);
+  border-color: var(--colorSecundario);
+  color: #070d18;
+  box-shadow: 0 0 20px rgba(1, 163, 238, 0.5);
 }
 
 /* ── Hamburguesa ── */
@@ -568,9 +572,11 @@ a:focus-visible {
     position: fixed;
     top: 0; right: 0; bottom: 0;
     width: min(320px, 85vw);
-    background: var(--colorFondoSuperficie);
-    border-left: 1px solid var(--colorBorde);
-    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6);
+    background-color: #081020;
+    background-image: none;
+    isolation: isolate;
+    border-left: 2px solid #1a3a5c;
+    box-shadow: -16px 0 80px rgba(0, 0, 0, 0.95);
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -578,6 +584,8 @@ a:focus-visible {
     transform: translateX(100%);
     visibility: hidden;
     transition: transform var(--transLenta), visibility var(--transLenta);
+    opacity: 1;
+    will-change: transform;
   }
 
   .header--open .header__nav {
@@ -589,8 +597,9 @@ a:focus-visible {
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(7, 13, 24, 0.75);
-    backdrop-filter: blur(4px);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(4, 8, 18, 0.92);
     z-index: -1;
     opacity: 0;
     transition: opacity var(--transLenta);
@@ -618,7 +627,7 @@ a:focus-visible {
     width: 100%;
     padding: var(--space-5) var(--space-4);
     font-size: var(--fs-base);
-    color: var(--colorTextoMuted);
+    color: rgba(254, 254, 254, 0.85);
     border-radius: 0;
     transition:
       color var(--transRapida),
@@ -701,6 +710,7 @@ a:focus-visible {
     rgba(2, 51, 106, 0.65) 50%,
     rgba(7, 13, 24, 0.40) 100%
   );
+  border-left: 3px solid var(--colorPrimario);
 }
 
 .hero__slide-overlay::after {
@@ -708,8 +718,9 @@ a:focus-visible {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 2px;
-  background: var(--gradienteAcento);
-  opacity: 0.6;
+  background: var(--colorSecundario);
+  height: 2px;
+  opacity: 1;
 }
 
 .hero__slide-content {
@@ -848,8 +859,8 @@ a:focus-visible {
 
 .products {
   padding-block: var(--space-24);
-  background-color: var(--colorFondoSuperficie);
-  border-top: 1px solid var(--colorBorde);
+  background-color: #fefefe;
+  border-top: 3px solid var(--colorSecundario);
   position: relative;
   overflow: hidden;
 }
@@ -888,8 +899,8 @@ a:focus-visible {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: var(--colorFondoSitio);
-  border: 1px solid var(--colorBorde);
+  background-color: #fefefe;
+  border: 1px solid rgba(0, 126, 207, 0.15);
   border-radius: var(--radioLg);
   overflow: hidden;
   box-shadow: var(--sombraCard);
@@ -962,7 +973,7 @@ a:focus-visible {
 .category-card__title {
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
-  color: var(--colorBase);
+  color: #02336a;
   line-height: 1.25;
   transition: color var(--transRapida);
 }
@@ -972,14 +983,14 @@ a:focus-visible {
 .category-card__description {
   font-size: var(--fs-sm);
   line-height: 1.7;
-  color: var(--colorTextoMuted);
+  color: #007ecf;
   max-width: 100%;
   flex: 1;
 }
 
 .category-card__footer {
   padding: var(--space-5) var(--space-6) var(--space-6);
-  border-top: 1px solid var(--colorBorde);
+  border-top: 1px solid rgba(1, 163, 238, 0.15);
   margin-top: var(--space-2);
 }
 
@@ -989,6 +1000,9 @@ a:focus-visible {
   font-size: var(--fs-xs);
   padding: var(--space-3) var(--space-4);
   letter-spacing: 0.06em;
+  border-color: transparent;
+  color: var(--colorSecundario);
+  font-weight: var(--fw-bold);
 }
 
 .category-card:hover .category-card__cta {
@@ -1014,12 +1028,15 @@ a:focus-visible {
   .products__grid { grid-template-columns: 1fr; }
 }
 
-/* 08. NOSOTROS */
+
+/* ================================================================
+   08. NOSOTROS
+   ================================================================ */
 
 .about {
   padding-block: var(--space-24);
-  background-color: var(--colorFondoSitio);
-  border-top: 1px solid var(--colorBorde);
+  background-color: #02336a;
+  border-top: 1px solid rgba(1, 163, 238, 0.15);
   position: relative;
   overflow: hidden;
 }
@@ -1056,12 +1073,12 @@ a:focus-visible {
 .about__intro-text p {
   font-size: var(--fs-md);
   line-height: 1.8;
-  color: var(--colorTextoMuted);
+  color: rgba(254, 254, 254, 0.80);
   max-width: 100%;
 }
 
 .about__intro-text strong {
-  color: var(--colorBase);
+  color: #fefefe;
   font-weight: var(--fw-semibold);
 }
 
@@ -1126,9 +1143,9 @@ a:focus-visible {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(2, 51, 106, 0.97) 0%,
-    rgba(7, 13, 24, 0.75) 50%,
-    rgba(7, 13, 24, 0.25) 100%
+    rgba(4, 12, 28, 0.97) 0%,
+    rgba(4, 12, 28, 0.70) 50%,
+    rgba(4, 12, 28, 0.20) 100%
   );
   transition: opacity var(--transMedia);
 }
@@ -1200,8 +1217,8 @@ a:focus-visible {
    ================================================================ */
 
 .footer {
-  background-color: var(--colorProfundo);
-  border-top: 1px solid rgba(1, 163, 238, 0.2);
+  background-color: var(--colorFondoSuperficie);
+  border-top: 1px solid rgba(1, 163, 238, 0.15);
   position: relative;
   overflow: hidden;
 }
@@ -1245,12 +1262,12 @@ a:focus-visible {
   text-transform: uppercase;
   color: var(--colorSecundario);
   padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--colorBorde);
+  border-bottom: 1px solid rgba(1, 163, 238, 0.2);
 }
 
 .footer__logo {
   display: inline-flex;
-  flex-direction: column;   /* Ícono → Molecular → Solutions */
+  flex-direction: column;
   align-items: center;
   gap: var(--space-2);
   width: fit-content;
@@ -1547,7 +1564,7 @@ a:focus-visible {
 
 .clients {
   padding-block: var(--space-20);
-  background-color: var(--colorFondoSuperficie);
+  background-color: var(--colorFondoSitio);
   border-top: 1px solid var(--colorBorde);
   overflow: hidden;
 }

@@ -82,16 +82,25 @@
     header.classList.add(CLASS_OPEN);
     hamburgerBtn.setAttribute(ARIA_EXPANDED, 'true');
     hamburgerBtn.setAttribute('aria-label', 'Cerrar menú de navegación');
-    // Bloquear scroll del body para que el panel quede fijo
     document.body.style.overflow = 'hidden';
+    /*
+      CRÍTICO: el backdrop-filter del header crea un contexto de composición
+      que hace que el panel nav (aunque sea position:fixed) herede la
+      transparencia/blur del header, volviéndose translúcido.
+      Desactivarlo mientras el menú está abierto resuelve el problema.
+    */
+    header.style.backdropFilter = 'none';
+    header.style.webkitBackdropFilter = 'none';
   }
 
   function closeMenu() {
     header.classList.remove(CLASS_OPEN);
     hamburgerBtn.setAttribute(ARIA_EXPANDED, 'false');
     hamburgerBtn.setAttribute('aria-label', 'Abrir menú de navegación');
-    // Restaurar scroll del body
     document.body.style.overflow = '';
+    /* Restaurar el backdrop-filter del header al cerrar */
+    header.style.backdropFilter = '';
+    header.style.webkitBackdropFilter = '';
   }
 
   function toggleMenu() {
