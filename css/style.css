@@ -498,7 +498,7 @@ a:focus-visible {
   flex-shrink: 0;
   display: block;
   background: transparent;
-  filter: brightness(0) invert(1);
+  /* filter: brightness(0) invert(1); */
   transition: opacity var(--transRapida);
 }
 
@@ -1341,7 +1341,7 @@ a:focus-visible {
   width: auto;
   max-width: none;
   flex-shrink: 0;
-  filter: brightness(0) invert(1);
+  /* filter: brightness(0) invert(1); */
   transition: opacity var(--transRapida);
 }
 
