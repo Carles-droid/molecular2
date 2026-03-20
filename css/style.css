@@ -489,22 +489,14 @@ a:focus-visible {
    Esto da un azul sólido. Para gradiente real se necesita SVG inline.
 */
 
-/*
-   fill:#000000 en el SVG → usamos filter para colorear.
-   brightness(0) colapsa a negro, luego invert+sepia+hue-rotate
-   produce el azul #01a3ee (colorSecundario) de forma estable.
-*/
 .header__logo-img {
   height: 72px;
   width: auto;
   flex-shrink: 0;
   display: block;
-  filter: brightness(0) invert(1)
-          sepia(1) saturate(3) hue-rotate(175deg);
+  filter: brightness(0) invert(1);
   transition: opacity var(--transRapida);
 }
-
-/* Sin cambio de color en hover — solo la opacidad del padre */
 
 /* Ocultar logo cuando el menú hamburguesa está abierto */
 .header--open .header__logo {
@@ -1339,21 +1331,13 @@ a:focus-visible {
 
 .footer__logo:hover { opacity: 0.85; }
 
-/*
-   logoMolecular.svg: 1005 × 656 (proporción ~3:2)
-   A 160px de alto → ~244px de ancho.
-   Mismo tratamiento que el header: azul #01a3ee estable.
-*/
 .footer__logo-img {
   height: 160px;
   width: auto;
   flex-shrink: 0;
-  filter: brightness(0) invert(1)
-          sepia(1) saturate(3) hue-rotate(175deg);
+  filter: brightness(0) invert(1);
   transition: opacity var(--transRapida);
 }
-
-/* Sin cambio de color en hover — solo la opacidad del padre */
 
 .footer__tagline {
   font-size: var(--fs-sm);
