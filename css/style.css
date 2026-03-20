@@ -436,6 +436,63 @@ a:focus-visible {
    se calcula automáticamente por aspect-ratio:
      adn.svg   846×510 (~5:3) → 72px alto ≈ 120px ancho
      texto.svg 484×224 (~2:1) → 72px alto ≈ 155px ancho
+
+   GRADIENTE: el SVG tiene fill:#000000, por lo que no se puede
+   colorear con filter. Se usa mask-image para que el SVG actúe
+   como máscara recortando el gradiente aplicado como background.
+   El elemento <img> se vuelve transparente; un ::after con el
+   gradiente queda visible solo dentro de la silueta del SVG.
+
+   Técnica: wrapper relativo + pseudo-elemento con gradient + mask.
+*/
+.header__logo-img {
+  height: 72px;
+  width: auto;
+  flex-shrink: 0;
+  display: block;
+  /*
+    mask-image usa la imagen como silueta alpha.
+    El SVG negro se convierte en máscara opaca.
+  */
+  -webkit-mask-image: var(--logo-mask-src, none);
+          mask-image: var(--logo-mask-src, none);
+  -webkit-mask-size: contain;
+          mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+          mask-position: center;
+  /*
+    background visible a través de la máscara:
+    gradiente azul claro (#01a3ee) → azul marino (#02336a)
+  */
+  background: linear-gradient(135deg, #01a3ee 0%, #007ecf 45%, #02336a 100%);
+  transition: background var(--transMedia), opacity var(--transRapida);
+}
+
+/*
+   Como mask-image no funciona sobre <img> en todos los navegadores,
+   usamos la técnica más compatible:
+   - El <img> se oculta (opacity:0, ocupa espacio como máscara de layout)
+   - El padre .header__logo-img-wrap actúa como contenedor relativo
+   Para mayor compatibilidad cruzada, aplicamos el filter como fallback
+   y el gradiente real solo cuando mask está soportado.
+
+   SOLUCIÓN COMPATIBLE: aplicar directamente sobre <img> con
+   filter + hue-rotate + saturate para aproximar el gradiente azul.
+   Los SVG con fill:black responden bien a:
+     brightness(0)          → todo negro
+     invert(1)              → todo blanco
+     sepia(1)               → tono sepia
+     hue-rotate(180deg)     → giro hacia azules
+     saturate(3)            → intensificar
+   Esto da un azul sólido. Para gradiente real se necesita SVG inline.
+*/
+
+/*
+   fill:#000000 en el SVG → usamos filter para colorear.
+   brightness(0) colapsa a negro, luego invert+sepia+hue-rotate
+   produce el azul #01a3ee (colorSecundario) de forma estable.
 */
 .header__logo-img {
   height: 72px;
@@ -443,13 +500,20 @@ a:focus-visible {
   flex-shrink: 0;
   display: block;
   filter: brightness(0) invert(1)
-          drop-shadow(0 0 6px rgba(1, 163, 238, 0.4));
-  transition: filter var(--transMedia);
+          sepia(1) saturate(3) hue-rotate(175deg);
+  transition: opacity var(--transRapida);
 }
 
-.header__logo:hover .header__logo-img {
-  filter: brightness(0) invert(1)
-          drop-shadow(0 0 12px rgba(1, 163, 238, 0.75));
+/* Sin cambio de color en hover — solo la opacidad del padre */
+
+/* Ocultar logo cuando el menú hamburguesa está abierto */
+.header--open .header__logo {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--transRapida),
+    visibility var(--transRapida);
 }
 
 /* ── Navegación desktop ── */
@@ -1277,20 +1341,19 @@ a:focus-visible {
 
 /*
    logoMolecular.svg: 1005 × 656 (proporción ~3:2)
-   A 160px de alto → ~244px de ancho. Usa height+auto
-   para respetar la proporción real del SVG.
+   A 160px de alto → ~244px de ancho.
+   Mismo tratamiento que el header: azul #01a3ee estable.
 */
 .footer__logo-img {
   height: 160px;
   width: auto;
   flex-shrink: 0;
-  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(1, 163, 238, 0.45));
-  transition: filter var(--transMedia);
+  filter: brightness(0) invert(1)
+          sepia(1) saturate(3) hue-rotate(175deg);
+  transition: opacity var(--transRapida);
 }
 
-.footer__logo:hover .footer__logo-img {
-  filter: brightness(0) invert(1) drop-shadow(0 0 20px rgba(1, 163, 238, 0.80));
-}
+/* Sin cambio de color en hover — solo la opacidad del padre */
 
 .footer__tagline {
   font-size: var(--fs-sm);
