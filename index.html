@@ -449,14 +449,25 @@
        Logo: logoMolecular.svg completo (ADN + texto)
              height: 160px — width: auto (proporción 3:2 ~244px)
   ====================================================== -->
+  <!-- =====================================================
+       FOOTER
+       id="contacto" — ancla de navegación del CTA "Contacto"
+       Estructura:
+         • .footer__top    → 3 columnas: marca+redes / navegación / contacto
+         • .footer__bottom → copyright + crédito desarrollador
+       Desktop: logo col 1 arriba → redes sociales debajo
+       Mobile (≤560px): navegación → contacto → logo (order CSS)
+  ====================================================== -->
   <footer class="footer" id="contacto" role="contentinfo">
     <div class="container">
 
       <!-- ── Top ── -->
       <div class="footer__top">
 
-        <!-- Columna 1: Marca -->
+        <!-- Columna 1: Logo + redes sociales -->
         <div class="footer__col footer__col--brand">
+
+          <!-- Logo encima de las redes -->
           <a href="#inicio" class="footer__logo" aria-label="Molecular Solutions — Inicio">
             <img
               src="assets/icons/logoMolecular.svg"
@@ -465,7 +476,8 @@
               loading="lazy"
             />
           </a>
-          <!-- Redes sociales -->
+
+          <!-- Redes sociales debajo del logo -->
           <ul class="footer__social" role="list" aria-label="Redes sociales">
             <li>
               <a href="https://facebook.com/molecularsolutions" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Molecular Solutions">
@@ -488,6 +500,7 @@
               </a>
             </li>
           </ul>
+
         </div>
         <!-- /footer__col--brand -->
 

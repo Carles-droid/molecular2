@@ -490,10 +490,14 @@ a:focus-visible {
 */
 
 .header__logo-img {
+  /* Forzar tamaño: sin width+height explícitos el SVG se renderiza
+     a su tamaño intrínseco (846×510px) desbordando el header */
   height: 72px;
   width: auto;
+  max-width: none;           /* cancela el max-width:100% del reset global */
   flex-shrink: 0;
   display: block;
+  background: transparent;
   filter: brightness(0) invert(1);
   transition: opacity var(--transRapida);
 }
@@ -1296,7 +1300,7 @@ a:focus-visible {
 
 .footer__top {
   display: grid;
-  grid-template-columns: 1.6fr 1fr 1.4fr;
+  grid-template-columns: 1.6fr 1fr 1.4fr;  /* col 1 más ancha para el logo */
   gap: var(--space-10);
   padding-block: var(--space-16);
   align-items: start;
@@ -1322,18 +1326,20 @@ a:focus-visible {
 .footer__logo {
   display: inline-flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;  /* alineado a la izquierda como el resto del contacto */
   gap: 0;
   width: fit-content;
   text-decoration: none;
   transition: opacity var(--transRapida);
+  margin-top: var(--space-4);  /* separación del último dato de contacto */
 }
 
 .footer__logo:hover { opacity: 0.85; }
 
 .footer__logo-img {
-  height: 160px;
+  height: 150px;              /* reducido de 160px — proporcional a la columna */
   width: auto;
+  max-width: none;
   flex-shrink: 0;
   filter: brightness(0) invert(1);
   transition: opacity var(--transRapida);
@@ -1478,13 +1484,32 @@ a:focus-visible {
 
 @media (max-width: 900px) {
   .footer__top { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
-  .footer__col--brand { grid-column: 1 / -1; }
+  .footer__col--brand   { grid-column: 1 / -1; order: 0; }
+  .footer__col--nav     { order: 0; }
+  .footer__col--contact { order: 0; }
   .footer__tagline { max-width: 48ch; }
 }
 
 @media (max-width: 560px) {
-  .footer__top { grid-template-columns: 1fr; gap: var(--space-8); padding-block: var(--space-12); }
-  .footer__bottom { flex-direction: column; align-items: center; text-align: center; gap: var(--space-3); }
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    padding-block: var(--space-12);
+  }
+  .footer__bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-3);
+  }
+
+  /* Logo al final en mobile — debajo del contacto */
+  .footer__col--brand   { order: 3; }
+  .footer__col--nav     { order: 1; }
+  .footer__col--contact { order: 2; }
+
+  /* Logo más pequeño en mobile */
+  .footer__logo-img { height: 100px; }
 }
 
 
