@@ -8,39 +8,47 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/icons/adn-2.svg" />
-  <title>Molecular Solutions | Insumos para Laboratorio</title>
+  <title>Molecular Solutions | Soluciones aConciencia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/style.css" />
   <!-- <link rel="stylesheet" href="css/style-b.css"> -->
   <!-- <link rel="stylesheet" href="css/style-c.css">  -->
-
 </head>
- 
+
 <body>
- 
-  <!-- =====================================================
-       SKIP LINK — Accesibilidad: permite saltar al contenido
-       principal desde lectores de pantalla / teclado
-  ====================================================== -->
+
   <a class="skip-link" href="#main-content">Ir al contenido principal</a>
- 
- 
+
   <!-- =====================================================
        HEADER
-       Contiene: logotipo + navegación principal
-       BEM: .header / .header__logo / .header__nav / .header__nav-list
-            .header__nav-item / .header__nav-link
-       Comportamiento JS: sticky on scroll + hamburger toggle
+       Logo: adn.svg (cadena) + texto.svg (Molecular Solutions)
+       Ambos SVGs comparten la misma altura fija; el ancho
+       se calcula automáticamente respetando cada aspect-ratio:
+         • adn.svg   846 × 510  (~5:3) → a 72px alto ≈ 120px ancho
+         • texto.svg 484 × 224  (~2:1) → a 72px alto ≈ 155px ancho
+       BEM: .header / .header__logo / .header__nav
   ====================================================== -->
   <header class="header" id="site-header" role="banner">
     <div class="container header__inner">
- 
-      <!-- Logotipo — texto vertical: Molecular arriba, Solutions abajo -->
+
+      <!-- Logotipo: cadena ADN + texto Molecular Solutions en línea -->
       <a href="#inicio" class="header__logo" aria-label="Molecular Solutions — Ir al inicio">
-        <span class="header__logo-text">Molecular</span>
-        <strong class="header__logo-text--accent">Solutions</strong>
+        <img
+          src="assets/icons/adn.svg"
+          alt=""
+          class="header__logo-img header__logo-img--adn"
+          aria-hidden="true"
+        />
+        <img
+          src="assets/icons/texto.svg"
+          alt="Molecular Solutions"
+          class="header__logo-img header__logo-img--texto"
+        />
       </a>
- 
+
       <!-- Botón hamburguesa (visible solo en móvil) -->
       <button
         class="header__hamburger"
@@ -53,7 +61,7 @@
         <span class="header__hamburger-bar"></span>
         <span class="header__hamburger-bar"></span>
       </button>
- 
+
       <!-- Navegación principal -->
       <nav class="header__nav" id="primary-nav" aria-label="Navegación principal">
         <ul class="header__nav-list" role="list">
@@ -74,407 +82,189 @@
           </li>
         </ul>
       </nav>
-      <!-- /header__nav -->
- 
+
     </div>
-    <!-- /container -->
   </header>
-  <!-- /header -->
- 
- 
-  <!-- MAIN — Contenido principal del sitio-->
+
   <main id="main-content">
- 
-    <!-- =================================================
-         SECCIÓN 1: HERO / SLIDER
-         id="inicio" — ancla de navegación
-         Estructura del slider:
-           • .hero__track  → contenedor deslizante (transform: translateX)
-           • .hero__slide  → cada tarjeta (×4)
-           • .hero__controls → flechas prev/next
-           • .hero__dots    → indicadores de posición
-         JS: slider.js (autoplay + navegación manual)
-    ================================================== -->
+
+    <!-- ── HERO ── -->
     <section class="hero" id="inicio" aria-label="Presentación principal">
- 
       <div class="hero__slider" role="region" aria-roledescription="carrusel" aria-label="Destacados">
- 
-        <!-- Track deslizante -->
         <div class="hero__track" id="hero-track">
- 
-          <!-- ---- Slide 1 ---- -->
+
           <article class="hero__slide" aria-label="Diapositiva 1 de 4">
-            <!--
-              Imagen de fondo declarada en CSS mediante la clase
-              modificadora .hero__slide--N para mantener separación
-              de responsabilidades (estructura vs presentación).
-            -->
             <div class="hero__slide-overlay"></div>
             <div class="hero__slide-content container">
-              <h2 class="hero__slide-title">
-                Equipamiento de precisión para tu laboratorio
-              </h2>
-              <p class="hero__slide-text">
-                Ofrecemos los mejores insumos certificados para investigación
-                y docencia en instituciones de educación superior.
-              </p>
-              <a href="#productos" class="btn btn--primary hero__slide-cta">
-                Ver catálogo
-              </a>
+              <h2 class="hero__slide-title">Equipamiento de precisión para tu laboratorio</h2>
+              <p class="hero__slide-text">Ofrecemos los mejores insumos certificados para investigación y docencia en instituciones de educación superior.</p>
+              <a href="#productos" class="btn btn--primary hero__slide-cta">Ver catálogo</a>
             </div>
           </article>
-          <!-- /Slide 1 -->
- 
-          <!-- ---- Slide 2 ---- -->
+
           <article class="hero__slide hero__slide--2" aria-label="Diapositiva 2 de 4">
             <div class="hero__slide-overlay"></div>
             <div class="hero__slide-content container">
-              <h2 class="hero__slide-title">
-                Reactivos de alta pureza
-              </h2>
-              <p class="hero__slide-text">
-                Amplio inventario de reactivos analíticos, ACS y grado HPLC
-                con disponibilidad inmediata y entregas a todo el país.
-              </p>
-              <a href="#productos" class="btn btn--primary hero__slide-cta">
-                Solicitar cotización
-              </a>
+              <h2 class="hero__slide-title">Reactivos de alta pureza</h2>
+              <p class="hero__slide-text">Amplio inventario de reactivos analíticos, ACS y grado HPLC con disponibilidad inmediata y entregas a todo el país.</p>
+              <a href="#productos" class="btn btn--primary hero__slide-cta">Solicitar cotización</a>
             </div>
           </article>
-          <!-- /Slide 2 -->
- 
-          <!-- ---- Slide 3 ---- -->
+
           <article class="hero__slide hero__slide--3" aria-label="Diapositiva 3 de 4">
             <div class="hero__slide-overlay"></div>
             <div class="hero__slide-content container">
-              <h2 class="hero__slide-title">
-                Material de vidrio y consumibles
-              </h2>
-              <p class="hero__slide-text">
-                Desde matraces y pipetas hasta micropipetas y material desechable
-                estéril para cada área de trabajo.
-              </p>
-              <a href="#productos" class="btn btn--primary hero__slide-cta">
-                Explorar productos
-              </a>
+              <h2 class="hero__slide-title">Material de vidrio y consumibles</h2>
+              <p class="hero__slide-text">Desde matraces y pipetas hasta micropipetas y material desechable estéril para cada área de trabajo.</p>
+              <a href="#productos" class="btn btn--primary hero__slide-cta">Explorar productos</a>
             </div>
           </article>
-          <!-- /Slide 3 -->
- 
-          <!-- ---- Slide 4 ---- -->
+
           <article class="hero__slide hero__slide--4" aria-label="Diapositiva 4 de 4">
             <div class="hero__slide-overlay"></div>
             <div class="hero__slide-content container">
-              <h2 class="hero__slide-title">
-                Asesoría técnica especializada
-              </h2>
-              <p class="hero__slide-text">
-                Nuestro equipo de expertos te acompaña en la selección del
-                insumo ideal para tus protocolos de investigación.
-              </p>
-              <a href="#contacto" class="btn btn--primary hero__slide-cta">
-                Contáctanos
-              </a>
+              <h2 class="hero__slide-title">Asesoría técnica especializada</h2>
+              <p class="hero__slide-text">Nuestro equipo de expertos te acompaña en la selección del insumo ideal para tus protocolos de investigación.</p>
+              <a href="#contacto" class="btn btn--primary hero__slide-cta">Contáctanos</a>
             </div>
           </article>
-          <!-- /Slide 4 -->
- 
+
         </div>
-        <!-- /hero__track -->
- 
-        <!-- Controles de navegación -->
-        <button
-          class="hero__control hero__control--prev"
-          aria-label="Diapositiva anterior"
-          id="hero-prev"
-        >
+
+        <button class="hero__control hero__control--prev" aria-label="Diapositiva anterior" id="hero-prev">
           <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
         </button>
- 
-        <button
-          class="hero__control hero__control--next"
-          aria-label="Siguiente diapositiva"
-          id="hero-next"
-        >
+        <button class="hero__control hero__control--next" aria-label="Siguiente diapositiva" id="hero-next">
           <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
         </button>
- 
-        <!-- Indicadores (dots) -->
+
         <div class="hero__dots" role="tablist" aria-label="Seleccionar diapositiva">
           <button class="hero__dot hero__dot--active" role="tab" aria-selected="true"  aria-label="Ir a diapositiva 1" data-slide="0"></button>
           <button class="hero__dot"                   role="tab" aria-selected="false" aria-label="Ir a diapositiva 2" data-slide="1"></button>
           <button class="hero__dot"                   role="tab" aria-selected="false" aria-label="Ir a diapositiva 3" data-slide="2"></button>
           <button class="hero__dot"                   role="tab" aria-selected="false" aria-label="Ir a diapositiva 4" data-slide="3"></button>
         </div>
- 
       </div>
-      <!-- /hero__slider -->
- 
     </section>
-    <!-- /hero -->
- 
- 
-    <!-- =================================================
-         SECCIÓN 2: PRODUCTOS
-         id="productos" — ancla de navegación
- 
-         Estructura actual (v2):
-           • .products__header   → encabezado de sección
-           • .products__grid     → cuadrícula de tarjetas de categoría
-           • .category-card      → componente BEM de tarjeta de categoría
-               __media           → contenedor de imagen (aspect-ratio fijo)
-               __img             → fotografía de la categoría
-               __body            → zona de texto
-               __title           → nombre de la categoría (h3)
-               __description     → descripción breve
-               __footer          → CTA "Solicitar cotización"
- 
-         ESCALABILIDAD:
-           Agregar o quitar categorías solo requiere copiar/eliminar
-           un bloque <li class="products__grid-item">.
-           Si en el futuro se reactivan los filtros, bastará con
-           añadir data-category al <li> y restaurar filter.js.
-    ================================================== -->
+
+    <!-- ── PRODUCTOS ── -->
     <section class="products" id="productos" aria-labelledby="products-heading">
- 
       <div class="container">
- 
-        <!-- Encabezado de sección -->
         <header class="section-header products__header">
           <span class="section-header__tag">Catálogo</span>
-          <h2 class="section-header__title" id="products-heading">
-            Nuestros productos
-          </h2>
-          <p class="section-header__subtitle">
-            Soluciones completas para cada etapa de tu investigación
-            y proceso educativo.
-          </p>
+          <h2 class="section-header__title" id="products-heading">Nuestros productos</h2>
+          <p class="section-header__subtitle">Soluciones completas para cada etapa de tu investigación y proceso educativo.</p>
         </header>
- 
-        <!-- Cuadrícula de categorías -->
+
         <ul class="products__grid" role="list">
- 
-          <!--
-            ESTRUCTURA DE TARJETA DE CATEGORÍA (.category-card)
-            ─────────────────────────────────────────────────────
-            Cada <li> representa una categoría del catálogo.
-            La imagen ilustra el tipo de producto.
-            Para agregar una categoría: duplicar el bloque <li> completo.
-          -->
- 
-          <!-- Categoría 1 — Reactivos -->
+
           <li class="products__grid-item">
             <article class="category-card">
               <div class="category-card__media">
-                <img
-                  src="assets/img/products/producto01.jpg"
-                  alt="Reactivos químicos de alta pureza en frascos de laboratorio"
-                  class="category-card__img"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                />
+                <img src="assets/img/products/producto01.jpg" alt="Reactivos químicos de alta pureza en frascos de laboratorio" class="category-card__img" loading="lazy" width="600" height="400" />
               </div>
               <div class="category-card__body">
                 <h3 class="category-card__title">Reactivos</h3>
-                <p class="category-card__description">
-                  Reactivos ACS, grado HPLC y analítico de los principales
-                  fabricantes. Stock permanente con disponibilidad inmediata
-                  y fichas de seguridad incluidas.
-                </p>
+                <p class="category-card__description">Reactivos ACS, grado HPLC y analítico de los principales fabricantes. Stock permanente con disponibilidad inmediata y fichas de seguridad incluidas.</p>
               </div>
               <div class="category-card__footer">
-                <a href="#contacto" class="btn btn--outline category-card__cta">
-                  Solicitar cotización
-                </a>
+                <a href="#contacto" class="btn btn--outline category-card__cta">Solicitar cotización</a>
               </div>
             </article>
           </li>
- 
-          <!-- Categoría 2 — Vidriería -->
+
           <li class="products__grid-item">
             <article class="category-card">
               <div class="category-card__media">
-                <img
-                  src="assets/img/products/productos02.webp"
-                  alt="Material de vidrio borosilicato para laboratorio"
-                  class="category-card__img"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                />
+                <img src="assets/img/products/productos02.webp" alt="Material de vidrio borosilicato para laboratorio" class="category-card__img" loading="lazy" width="600" height="400" />
               </div>
               <div class="category-card__body">
                 <h3 class="category-card__title">Vidriería</h3>
-                <p class="category-card__description">
-                  Matraces, vasos de precipitado, pipetas, buretas y tubos
-                  de borosilicato clase A con certificado de calibración
-                  para trabajo de precisión.
-                </p>
+                <p class="category-card__description">Matraces, vasos de precipitado, pipetas, buretas y tubos de borosilicato clase A con certificado de calibración para trabajo de precisión.</p>
               </div>
               <div class="category-card__footer">
-                <a href="#contacto" class="btn btn--outline category-card__cta">
-                  Solicitar cotización
-                </a>
+                <a href="#contacto" class="btn btn--outline category-card__cta">Solicitar cotización</a>
               </div>
             </article>
           </li>
- 
-          <!-- Categoría 3 — Equipos -->
+
           <li class="products__grid-item">
             <article class="category-card">
               <div class="category-card__media">
-                <img
-                  src="assets/img/products/productos03.jpg"
-                  alt="Equipos de laboratorio: balanzas, centrifugadoras y agitadores"
-                  class="category-card__img"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                />
+                <img src="assets/img/products/productos03.jpg" alt="Equipos de laboratorio: balanzas, centrifugadoras y agitadores" class="category-card__img" loading="lazy" width="600" height="400" />
               </div>
               <div class="category-card__body">
                 <h3 class="category-card__title">Equipos</h3>
-                <p class="category-card__description">
-                  Balanzas analíticas, centrifugadoras, agitadores, hornos
-                  y espectrofotómetros de marcas líderes con garantía
-                  y soporte técnico.
-                </p>
+                <p class="category-card__description">Balanzas analíticas, centrifugadoras, agitadores, hornos y espectrofotómetros de marcas líderes con garantía y soporte técnico.</p>
               </div>
               <div class="category-card__footer">
-                <a href="#contacto" class="btn btn--outline category-card__cta">
-                  Solicitar cotización
-                </a>
+                <a href="#contacto" class="btn btn--outline category-card__cta">Solicitar cotización</a>
               </div>
             </article>
           </li>
- 
-          <!-- Categoría 4 — Consumibles -->
+
           <li class="products__grid-item">
             <article class="category-card">
               <div class="category-card__media">
-                <img
-                  src="assets/img/products/productos04jpg.jpg"
-                  alt="Consumibles de laboratorio: guantes, tubos y puntas de micropipeta"
-                  class="category-card__img"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                />
+                <img src="assets/img/products/productos04jpg.jpg" alt="Consumibles de laboratorio: guantes, tubos y puntas de micropipeta" class="category-card__img" loading="lazy" width="600" height="400" />
               </div>
               <div class="category-card__body">
                 <h3 class="category-card__title">Consumibles</h3>
-                <p class="category-card__description">
-                  Guantes, puntas de micropipeta, tubos Eppendorf, jeringas,
-                  placas de cultivo y material desechable estéril para
-                  cualquier protocolo.
-                </p>
+                <p class="category-card__description">Guantes, puntas de micropipeta, tubos Eppendorf, jeringas, placas de cultivo y material desechable estéril para cualquier protocolo.</p>
               </div>
               <div class="category-card__footer">
-                <a href="#contacto" class="btn btn--outline category-card__cta">
-                  Solicitar cotización
-                </a>
+                <a href="#contacto" class="btn btn--outline category-card__cta">Solicitar cotización</a>
               </div>
             </article>
           </li>
- 
-          <!-- Categoría 5 — Seguridad -->
+
           <li class="products__grid-item">
             <article class="category-card">
               <div class="category-card__media">
-                <img
-                  src="assets/img/products/productos05.jpg"
-                  alt="Equipo de protección personal para laboratorio"
-                  class="category-card__img"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                />
+                <img src="assets/img/products/productos05.jpg" alt="Equipo de protección personal para laboratorio" class="category-card__img" loading="lazy" width="600" height="400" />
               </div>
               <div class="category-card__body">
                 <h3 class="category-card__title">Seguridad</h3>
-                <p class="category-card__description">
-                  Lentes de protección, batas, respiradores, gabinetes de
-                  seguridad y señalización para garantizar un entorno
-                  de trabajo protegido y normado.
-                </p>
+                <p class="category-card__description">Lentes de protección, batas, respiradores, gabinetes de seguridad y señalización para garantizar un entorno de trabajo protegido y normado.</p>
               </div>
               <div class="category-card__footer">
-                <a href="#contacto" class="btn btn--outline category-card__cta">
-                  Solicitar cotización
-                </a>
+                <a href="#contacto" class="btn btn--outline category-card__cta">Solicitar cotización</a>
               </div>
             </article>
           </li>
- 
-          <!-- Categoría 6 — Solventes -->
+
           <li class="products__grid-item">
             <article class="category-card">
               <div class="category-card__media">
-                <img
-                  src="assets/img/products/producto06.jpg"
-                  alt="Solventes orgánicos e inorgánicos certificados"
-                  class="category-card__img"
-                  loading="lazy"
-                  width="600"
-                  height="400"
-                />
+                <img src="assets/img/products/producto06.jpg" alt="Solventes orgánicos e inorgánicos certificados" class="category-card__img" loading="lazy" width="600" height="400" />
               </div>
               <div class="category-card__body">
                 <h3 class="category-card__title">Solventes</h3>
-                <p class="category-card__description">
-                  Metanol, etanol, acetonitrilo, cloroformo y más solventes
-                  orgánicos e inorgánicos en grado HPLC con trazabilidad
-                  y ficha técnica de seguridad.
-                </p>
+                <p class="category-card__description">Metanol, etanol, acetonitrilo, cloroformo y más solventes orgánicos e inorgánicos en grado HPLC con trazabilidad y ficha técnica de seguridad.</p>
               </div>
               <div class="category-card__footer">
-                <a href="#contacto" class="btn btn--outline category-card__cta">
-                  Solicitar cotización
-                </a>
+                <a href="#contacto" class="btn btn--outline category-card__cta">Solicitar cotización</a>
               </div>
             </article>
           </li>
- 
+
         </ul>
-        <!-- /products__grid -->
- 
-        <!-- CTA general -->
+
         <div class="products__cta-wrapper">
-          <a href="#contacto" class="btn btn--primary">
-            Solicitar catálogo completo
-          </a>
+          <a href="#contacto" class="btn btn--primary">Solicitar catálogo completo</a>
         </div>
- 
       </div>
-      <!-- /container -->
- 
     </section>
-    <!-- /products -->
- 
- 
-    <!-- =================================================
-         SECCIÓN 3: NOSOTROS
-         id="nosotros" — ancla de navegación
-         Estructura:
-           • .about__intro   → bloque de texto descriptivo
-           • .about__cards   → tarjetas Misión y Visión con imagen de fondo
-         Nota: el texto de Misión/Visión se superpone sobre la imagen
-         usando posicionamiento absoluto y overlay.
-    ================================================== -->
+
+    <!-- ── NOSOTROS ── -->
     <section class="about" id="nosotros" aria-labelledby="about-heading">
- 
       <div class="container">
- 
-        <!-- Encabezado de sección -->
+
         <header class="section-header about__header">
           <span class="section-header__tag">Quiénes somos</span>
-          <h2 class="section-header__title" id="about-heading">
-            Comprometidos con la ciencia
-          </h2>
+          <h2 class="section-header__title" id="about-heading">Comprometidos con la ciencia</h2>
         </header>
- 
-        <!-- Bloque de texto introductorio -->
+
         <div class="about__intro">
           <div class="about__intro-text">
             <p>
@@ -492,21 +282,12 @@
             </p>
           </div>
           <div class="about__intro-image">
-            <img
-              src="assets/img/nosotros/nosotros.jpg"
-              alt="Equipo de Molecular Solutions en el laboratorio"
-              class="about__intro-img"
-              loading="lazy"
-              width="600"
-              height="400"
-            />
+            <img src="assets/img/nosotros/nosotros.jpg" alt="Equipo de Molecular Solutions en el laboratorio" class="about__intro-img" loading="lazy" width="600" height="400" />
           </div>
         </div>
- 
-        <!-- Tarjetas Misión y Visión -->
+
         <div class="about__cards">
- 
-          <!-- Tarjeta Misión -->
+
           <article class="about-card about-card--mission" aria-label="Misión">
             <div class="about-card__overlay"></div>
             <div class="about-card__content">
@@ -525,8 +306,7 @@
               </p>
             </div>
           </article>
- 
-          <!-- Tarjeta Visión -->
+
           <article class="about-card about-card--vision" aria-label="Visión">
             <div class="about-card__overlay"></div>
             <div class="about-card__content">
@@ -545,172 +325,146 @@
               </p>
             </div>
           </article>
- 
+
         </div>
-        <!-- /about__cards -->
- 
       </div>
-      <!-- /container -->
- 
     </section>
-    <!-- /about -->
- 
- 
-    <!-- =================================================
-         SECCIÓN 4: CLIENTES — Carrusel infinito de logos
-         id="clientes" — ancla de navegación
- 
-         TÉCNICA DE LOOP INFINITO (CSS puro):
-         El .clients__belt contiene dos tracks idénticos en fila.
-         La animación desplaza el belt el 50% de su ancho total
-         (= un track exacto), creando un loop sin cortes ni JS.
- 
+
+    <!-- ── CLIENTES ──
+         6 logos reales. El track original tiene los 6 + repetición
+         interna (para superar el ancho del viewport).
+         El track duplicado tiene los 6 para el loop CSS.
          ── CÓMO AGREGAR UN LOGO ──────────────────────────────────
-         1. Copiar el archivo .svg a assets/icons/
-         2. Agregar un <li> al track original (el primero):
- 
-              <li class="clients__logo-item">
-                <img
-                  src="assets/icons/nombre.svg"
-                  alt="Nombre de la institución"
-                  class="clients__logo-img"
-                  loading="lazy" width="140" height="60"
-                />
-              </li>
- 
-         3. Duplicar el mismo <li> en el track aria-hidden="true"
-            con alt="" en la copia.
-         4. Cuando haya 8 logos distintos, eliminar la repetición
-            interna de cada track y ajustar --marquee-duration a ~36s.
+         1. Copiar el .svg a assets/icons/clientes/
+         2. Añadir <li> en el track original (accesible) con alt descriptivo
+         3. Duplicar el <li> en el track aria-hidden con alt=""
+         4. Al tener 8 logos, eliminar la repetición interna
+            y ajustar --marquee-duration a ~36s
          ─────────────────────────────────────────────────────────
-    ================================================== -->
+    -->
     <section class="clients" id="clientes" aria-labelledby="clients-heading">
- 
       <div class="container">
         <header class="section-header clients__header">
           <span class="section-header__tag">Confianza</span>
-          <h2 class="section-header__title" id="clients-heading">
-            Instituciones que nos eligen
-          </h2>
+          <h2 class="section-header__title" id="clients-heading">Instituciones que nos eligen</h2>
         </header>
       </div>
- 
-      <!-- Carrusel — ancho completo, fuera del container -->
+
       <div class="clients__marquee" aria-label="Logotipos de instituciones cliente" role="img">
- 
-        <!-- Belt: único elemento animado que arrastra ambos tracks -->
         <div class="clients__belt">
- 
-          <!-- ── Track original (accesible) ──
-               Los 4 logos se repiten internamente para superar el ancho
-               del viewport. Eliminar la repetición al tener 8 logos distintos.
-          -->
+
+          <!-- Track original (accesible) -->
           <ul class="clients__track" role="list">
             <li class="clients__logo-item">
-              <img src="assets/icons/unam.svg"  alt="Universidad Nacional Autónoma de México" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/institutoInvestigacionesBiomedicas.svg" alt="Instituto de Investigaciones Biomédicas" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/uam.svg"   alt="Universidad Autónoma Metropolitana"      class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/uamCuajimalpa.svg" alt="UAM Cuajimalpa" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/ipn.svg"   alt="Instituto Politécnico Nacional"          class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/centroCienciasGenomicas.svg" alt="Centro de Ciencias Genómicas" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/tecM.svg"  alt="Tecnológico de Monterrey"                class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/fesIztacala.svg" alt="FES Iztacala UNAM" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
-            <!-- Repetición interna — remover al tener 8 logos distintos -->
+            <li class="clients__logo-item">
+              <img src="assets/icons/clientes/institutoBiologia.svg" alt="Instituto de Biología UNAM" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/clientes/institutoFisiologiaCelular.svg" alt="Instituto de Fisiología Celular UNAM" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <!-- Repetición interna — remover al tener 8+ logos distintos -->
             <li class="clients__logo-item" aria-hidden="true">
-              <img src="assets/icons/unam.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/institutoInvestigacionesBiomedicas.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item" aria-hidden="true">
-              <img src="assets/icons/uam.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/uamCuajimalpa.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item" aria-hidden="true">
-              <img src="assets/icons/ipn.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/centroCienciasGenomicas.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item" aria-hidden="true">
-              <img src="assets/icons/tecM.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/fesIztacala.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item" aria-hidden="true">
+              <img src="assets/icons/clientes/institutoBiologia.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item" aria-hidden="true">
+              <img src="assets/icons/clientes/institutoFisiologiaCelular.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
           </ul>
-          <!-- /track original -->
- 
-          <!-- ── Track duplicado para loop (oculto a lectores de pantalla) ── -->
+
+          <!-- Track duplicado para loop CSS -->
           <ul class="clients__track" role="list" aria-hidden="true">
             <li class="clients__logo-item">
-              <img src="assets/icons/unam.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/institutoInvestigacionesBiomedicas.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/uam.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/uamCuajimalpa.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/ipn.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/centroCienciasGenomicas.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/tecM.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/fesIztacala.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/unam.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/institutoBiologia.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/uam.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/institutoFisiologiaCelular.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/ipn.svg"   alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/institutoInvestigacionesBiomedicas.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
             <li class="clients__logo-item">
-              <img src="assets/icons/tecM.svg"  alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+              <img src="assets/icons/clientes/uamCuajimalpa.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/clientes/centroCienciasGenomicas.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/clientes/fesIztacala.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/clientes/institutoBiologia.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
+            </li>
+            <li class="clients__logo-item">
+              <img src="assets/icons/clientes/institutoFisiologiaCelular.svg" alt="" class="clients__logo-img" loading="lazy" width="140" height="60" />
             </li>
           </ul>
-          <!-- /track duplicado -->
- 
+
         </div>
-        <!-- /clients__belt -->
- 
       </div>
-      <!-- /clients__marquee -->
- 
     </section>
-    <!-- /clients -->
- 
- 
+
   </main>
-  <!-- /main -->
- 
- 
+
   <!-- =====================================================
        FOOTER
+       id="contacto" — ancla de navegación del CTA "Contacto"
        Estructura:
-         • .footer__top    → tres columnas: marca / contacto / redes
-         • .footer__bottom → créditos y desarrollador
-       Nota: id="contacto" se coloca aquí ya que el footer
-       es el punto natural de contacto final.
+         • .footer__top    → 3 columnas: marca / navegación / contacto
+         • .footer__bottom → copyright + crédito desarrollador
+       Logo: logoMolecular.svg completo (ADN + texto)
+             height: 160px — width: auto (proporción 3:2 ~244px)
   ====================================================== -->
   <footer class="footer" id="contacto" role="contentinfo">
- 
     <div class="container">
- 
-      <!-- Top del footer: info principal -->
+
+      <!-- ── Top ── -->
       <div class="footer__top">
- 
-        <!-- Columna 1: Marca y descripción -->
+
+        <!-- Columna 1: Marca -->
         <div class="footer__col footer__col--brand">
-          <!-- Logo vertical: ícono arriba, nombre abajo -->
           <a href="#inicio" class="footer__logo" aria-label="Molecular Solutions — Inicio">
             <img
               src="assets/icons/logoMolecular.svg"
-              alt=""
+              alt="Molecular Solutions"
               class="footer__logo-img"
-              width="96"
-              height="96"
               loading="lazy"
-              aria-hidden="true"
             />
-            <span class="footer__logo-text">Molecular</span>
-            <strong class="footer__logo-text--accent">Solutions</strong>
           </a>
-          <p class="footer__tagline">
-            Insumos de calidad para la ciencia que transforma el mundo.
-          </p>
           <!-- Redes sociales -->
           <ul class="footer__social" role="list" aria-label="Redes sociales">
             <li>
@@ -736,7 +490,7 @@
           </ul>
         </div>
         <!-- /footer__col--brand -->
- 
+
         <!-- Columna 2: Navegación rápida -->
         <div class="footer__col footer__col--nav">
           <h3 class="footer__col-title">Navegación</h3>
@@ -747,88 +501,71 @@
             <li><a href="#clientes"  class="footer__nav-link">Clientes</a></li>
           </ul>
         </div>
- 
+
         <!-- Columna 3: Contacto -->
         <div class="footer__col footer__col--contact">
           <h3 class="footer__col-title">Contacto</h3>
           <ul class="footer__contact-list" role="list">
- 
-            <!-- Email 1 -->
+
             <li class="footer__contact-item">
               <i class="fa-solid fa-envelope footer__contact-icon" aria-hidden="true"></i>
-              <a href="/cdn-cgi/l/email-protection#e99f8c879d889aa98486858c8a9c85889b9a86859c9d8086879ac78491" class="footer__contact-link">
-                <span class="__cf_email__" data-cfemail="99effcf7edf8ead9f4f6f5fcfaecf5f8ebeaf6f5ecedf0f6f7eab7f4e1">[email&#160;protected]</span>
+              <a href="mailto:ventas@molecularsolutions.mx" class="footer__contact-link">
+                ventas@molecularsolutions.mx
               </a>
             </li>
- 
-            <!-- Email 2 -->
+
             <li class="footer__contact-item">
               <i class="fa-solid fa-envelope footer__contact-icon" aria-hidden="true"></i>
-              <a href="/cdn-cgi/l/email-protection#e78488938e9d86848e88898294a78a888b8284928b869594888b92938e888994c98a9f" class="footer__contact-link">
-                <span class="__cf_email__" data-cfemail="bad9d5ced3c0dbd9d3d5d4dfc9fad7d5d6dfd9cfd6dbc8c9d5d6cfced3d5d4c994d7c2">[email&#160;protected]</span>
+              <a href="mailto:cotizaciones@molecularsolutions.mx" class="footer__contact-link">
+                cotizaciones@molecularsolutions.mx
               </a>
             </li>
- 
-            <!-- Teléfono 1 -->
+
             <li class="footer__contact-item">
               <i class="fa-solid fa-phone footer__contact-icon" aria-hidden="true"></i>
               <a href="tel:+52XXXXXXXXXX" class="footer__contact-link">
                 +52 (55) XXXX XXXX
               </a>
             </li>
- 
-            <!-- Teléfono 2 / WhatsApp -->
+
             <li class="footer__contact-item">
               <i class="fa-brands fa-whatsapp footer__contact-icon" aria-hidden="true"></i>
               <a
-                href="https://wa.me/52XXXXXXXXXX?text=Hola%2C%20me%20interesa%20recibir%20una%20cotizaci%C3%B3n."
+                href="https://wa.me/525523435722?text=Hola%2C%20me%20interesa%20recibir%20una%20cotizaci%C3%B3n."
                 class="footer__contact-link"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                +52 (55) XXXX XXXX
+                +52 (55) 2343 5722
               </a>
             </li>
- 
+
           </ul>
         </div>
         <!-- /footer__col--contact -->
- 
+
       </div>
       <!-- /footer__top -->
- 
-      <!-- Divisor -->
+
       <hr class="footer__divider" />
- 
-      <!-- Bottom del footer: créditos -->
+
+      <!-- ── Bottom ── -->
       <div class="footer__bottom">
         <p class="footer__legal">
           &copy; <span id="footer-year"></span> Molecular Solutions. Todos los derechos reservados.
         </p>
         <p class="footer__developer">
           Desarrollado por
-          <a
-            href="https://insomne.dev"
-            class="footer__developer-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://insomne.dev" class="footer__developer-link" target="_blank" rel="noopener noreferrer">
             Insomne
           </a>
         </p>
       </div>
-      <!-- /footer__bottom -->
- 
+
     </div>
-    <!-- /container -->
- 
   </footer>
-  <!-- /footer -->
- 
- 
-  <!-- =====================================================
-       BOTÓN FLOTANTE — WhatsApp
-  ====================================================== -->
+
+  <!-- ── WHATSAPP FAB ── -->
   <a
     href="https://wa.me/525523435722?text=Hola%2C%20me%20interesa%20recibir%20informaci%C3%B3n%20sobre%20sus%20productos."
     class="whatsapp-fab"
@@ -840,16 +577,6 @@
     <span class="whatsapp-fab__tooltip">¡Escríbenos!</span>
   </a>
 
-
-
-  <!-- =====================================================
-       SCRIPTS
-       Orden de carga:
-         1. main.js   — inicialización global (año footer, misceláneos)
-         2. nav.js    — lógica del menú hamburguesa + sticky header
-         3. slider.js — lógica del hero slider (autoplay, swipe, teclado)
-       Todos los scripts usan 'defer' para no bloquear el parsing del HTML.
-  ====================================================== -->
   <script src="js/main.js"   defer></script>
   <script src="js/nav.js"    defer></script>
   <script src="js/slider.js" defer></script>

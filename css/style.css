@@ -23,7 +23,7 @@
    01. CUSTOM PROPERTIES — Design Tokens
    ================================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
 
@@ -56,8 +56,8 @@
   --gradienteOverlay:  linear-gradient(to top, rgba(2, 51, 106, 0.92) 0%, rgba(7, 13, 24, 0.4) 100%);
 
   /* ── Tipografías ── */
-  --fuentePrincipal:  'Exo 2', sans-serif;
-  --fuenteSecundaria: 'Inter', sans-serif;
+  --fuentePrincipal:  'Montserrat', sans-serif;   /* Headings / display / UI */
+  --fuenteSecundaria: 'Inter', sans-serif;          /* Body / párrafos        */
 
   /* ── Escala tipográfica fluid via clamp() ── */
   --fs-xs:   clamp(0.70rem, 1vw,    0.75rem);
@@ -96,8 +96,8 @@
   --paddingContenedor: clamp(var(--space-4), 5vw, var(--space-10));
 
   /* ── Alturas de componentes ── */
-  --alturaHeader:         80px;
-  --alturaHeaderScrolled: 68px;
+  --alturaHeader:         100px;
+  --alturaHeaderScrolled: 84px;
 
   /* ── Bordes & radios ── */
   --radioSm:   4px;
@@ -132,7 +132,9 @@
 }
 
 
-/*  02. RESET COMPLEMENTARIO A NORMALIZE.CSS */
+/* ================================================================
+   02. RESET COMPLEMENTARIO A NORMALIZE.CSS
+   ================================================================ */
 
 *,
 *::before,
@@ -185,7 +187,10 @@ select {
 }
 
 
-/* 03. BASE & TIPOGRAFÍA GLOBAL */
+/* ================================================================
+   03. BASE & TIPOGRAFÍA GLOBAL
+   ================================================================ */
+
 body {
   font-family: var(--fuenteSecundaria);
   font-size: var(--fs-base);
@@ -245,7 +250,9 @@ a:focus-visible {
 ::-webkit-scrollbar-thumb:hover { background: var(--colorPrimario); }
 
 
-/* 04. UTILIDADES GLOBALES */
+/* ================================================================
+   04. UTILIDADES GLOBALES
+   ================================================================ */
 
 .container {
   width: 100%;
@@ -413,38 +420,36 @@ a:focus-visible {
 /* ── Logotipo ── */
 .header__logo {
   display: inline-flex;
-  flex-direction: column;   /* Molecular arriba, Solutions abajo */
-  align-items: flex-start;
-  gap: var(--space-1);
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-2);
   flex-shrink: 0;
   z-index: var(--zElevado);
   text-decoration: none;
-  line-height: 1;
   transition: opacity var(--transRapida);
 }
 
 .header__logo:hover { opacity: 0.85; }
 
-.header__logo-text {
-  font-family: var(--fuentePrincipal);
-  font-size: var(--fs-lg);
-  font-weight: var(--fw-medium);
-  letter-spacing: 0.04em;
-  color: var(--colorBase);
-  white-space: nowrap;
-  line-height: 1.1;
+/*
+   Ambos SVGs comparten la misma altura — el ancho
+   se calcula automáticamente por aspect-ratio:
+     adn.svg   846×510 (~5:3) → 72px alto ≈ 120px ancho
+     texto.svg 484×224 (~2:1) → 72px alto ≈ 155px ancho
+*/
+.header__logo-img {
+  height: 72px;
+  width: auto;
+  flex-shrink: 0;
   display: block;
+  filter: brightness(0) invert(1)
+          drop-shadow(0 0 6px rgba(1, 163, 238, 0.4));
+  transition: filter var(--transMedia);
 }
 
-.header__logo-text--accent {
-  font-family: var(--fuentePrincipal);
-  font-size: var(--fs-lg);
-  font-weight: var(--fw-extrabold);
-  letter-spacing: 0.06em;
-  color: var(--colorSecundario);
-  white-space: nowrap;
-  line-height: 1.1;
-  display: block;
+.header__logo:hover .header__logo-img {
+  filter: brightness(0) invert(1)
+          drop-shadow(0 0 12px rgba(1, 163, 238, 0.75));
 }
 
 /* ── Navegación desktop ── */
@@ -568,9 +573,11 @@ a:focus-visible {
     position: fixed;
     top: 0; right: 0; bottom: 0;
     width: min(320px, 85vw);
-    background: var(--colorFondoSuperficie);
-    border-left: 1px solid var(--colorBorde);
-    box-shadow: -8px 0 40px rgba(0, 0, 0, 0.6);
+    background-color: #081020;
+    background-image: none;
+    isolation: isolate;
+    border-left: 2px solid #1a3a5c;
+    box-shadow: -16px 0 80px rgba(0, 0, 0, 0.95);
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -578,6 +585,8 @@ a:focus-visible {
     transform: translateX(100%);
     visibility: hidden;
     transition: transform var(--transLenta), visibility var(--transLenta);
+    opacity: 1;
+    will-change: transform;
   }
 
   .header--open .header__nav {
@@ -589,8 +598,9 @@ a:focus-visible {
     content: '';
     position: fixed;
     inset: 0;
-    background: rgba(7, 13, 24, 0.75);
-    backdrop-filter: blur(4px);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(4, 8, 18, 0.92);
     z-index: -1;
     opacity: 0;
     transition: opacity var(--transLenta);
@@ -618,7 +628,7 @@ a:focus-visible {
     width: 100%;
     padding: var(--space-5) var(--space-4);
     font-size: var(--fs-base);
-    color: var(--colorTextoMuted);
+    color: rgba(254, 254, 254, 0.85);
     border-radius: 0;
     transition:
       color var(--transRapida),
@@ -644,8 +654,9 @@ a:focus-visible {
   }
 }
 
+/* Pantallas muy pequeñas: reducir ambos SVGs proporcionalmente */
 @media (max-width: 360px) {
-  .header__logo-text { font-size: var(--fs-lg); }
+  .header__logo-img { height: 48px; }
 }
 
 
@@ -701,6 +712,7 @@ a:focus-visible {
     rgba(2, 51, 106, 0.65) 50%,
     rgba(7, 13, 24, 0.40) 100%
   );
+  border-left: 3px solid var(--colorPrimario);
 }
 
 .hero__slide-overlay::after {
@@ -1014,7 +1026,10 @@ a:focus-visible {
   .products__grid { grid-template-columns: 1fr; }
 }
 
-/* 08. NOSOTROS */
+
+/* ================================================================
+   08. NOSOTROS
+   ================================================================ */
 
 .about {
   padding-block: var(--space-24);
@@ -1250,9 +1265,9 @@ a:focus-visible {
 
 .footer__logo {
   display: inline-flex;
-  flex-direction: column;   /* Ícono → Molecular → Solutions */
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
+  gap: 0;
   width: fit-content;
   text-decoration: none;
   transition: opacity var(--transRapida);
@@ -1260,40 +1275,21 @@ a:focus-visible {
 
 .footer__logo:hover { opacity: 0.85; }
 
+/*
+   logoMolecular.svg: 1005 × 656 (proporción ~3:2)
+   A 160px de alto → ~244px de ancho. Usa height+auto
+   para respetar la proporción real del SVG.
+*/
 .footer__logo-img {
-  width: 96px;
-  height: 96px;
+  height: 160px;
+  width: auto;
   flex-shrink: 0;
   filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(1, 163, 238, 0.45));
   transition: filter var(--transMedia);
 }
 
 .footer__logo:hover .footer__logo-img {
-  filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(1, 163, 238, 0.75));
-}
-
-.footer__logo-text {
-  font-family: var(--fuentePrincipal);
-  font-size: var(--fs-xl);
-  font-weight: var(--fw-medium);
-  letter-spacing: 0.04em;
-  color: var(--colorBase);
-  white-space: nowrap;
-  line-height: 1.1;
-  display: block;
-  text-align: center;
-}
-
-.footer__logo-text--accent {
-  font-family: var(--fuentePrincipal);
-  font-size: var(--fs-xl);
-  font-weight: var(--fw-extrabold);
-  letter-spacing: 0.06em;
-  color: var(--colorSecundario);
-  white-space: nowrap;
-  line-height: 1.1;
-  display: block;
-  text-align: center;
+  filter: brightness(0) invert(1) drop-shadow(0 0 20px rgba(1, 163, 238, 0.80));
 }
 
 .footer__tagline {
@@ -1578,7 +1574,7 @@ a:focus-visible {
   align-items: center;
   gap: var(--space-16);
   padding-inline: var(--space-8);
-  padding-block: var(--space-4);
+  padding-block: var(--space-8);   /* era space-4 → más altura vertical */
   flex-shrink: 0;
   list-style: none;
   margin: 0;
@@ -1592,9 +1588,9 @@ a:focus-visible {
 }
 
 .clients__logo-img {
-  height: 52px;
+  height: 80px;              /* era 52px → más legible */
   width: auto;
-  max-width: 160px;
+  max-width: 200px;          /* era 160px */
   object-fit: contain;
   display: block;
   filter: brightness(0) invert(1);
@@ -1603,13 +1599,13 @@ a:focus-visible {
 
 @media (max-width: 768px) {
   .clients { padding-block: var(--space-16); }
-  .clients__track { gap: var(--space-10); }
-  .clients__logo-img { height: 40px; max-width: 120px; }
+  .clients__track { gap: var(--space-10); padding-block: var(--space-6); }
+  .clients__logo-img { height: 64px; max-width: 160px; }
 }
 
 @media (max-width: 480px) {
-  .clients__track { gap: var(--space-8); }
-  .clients__logo-img { height: 34px; max-width: 100px; }
+  .clients__track { gap: var(--space-8); padding-block: var(--space-5); }
+  .clients__logo-img { height: 52px; max-width: 130px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
